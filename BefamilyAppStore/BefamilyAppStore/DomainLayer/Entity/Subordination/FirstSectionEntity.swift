@@ -8,7 +8,7 @@
 import Foundation
 
 struct FirstSectionEntity {
-    let appIconImageURL: URL?
+    let appIconImage: Data
     let appName: String
     let downloadURL: URL?
 }

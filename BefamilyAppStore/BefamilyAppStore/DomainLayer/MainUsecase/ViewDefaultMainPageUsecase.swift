@@ -58,16 +58,14 @@ private extension ViewDefaultMainPageUsecase {
     
     func alterToNaviEntity(from dto: MainPageDTO) -> NavigationTitleEntity {
         let naviTitleImageURL = changeToURL(with: dto.artworkUrl60)
-        let downloadURL = changeToURL(with: dto.trackViewURL)
         
-        return NavigationTitleEntity(navigationTitleImageURL: naviTitleImageURL, downloadURL: downloadURL)
+        return NavigationTitleEntity(navigationTitleImage: changeToData(with: naviTitleImageURL), downloadURL: changeToURL(with: dto.trackViewURL))
     }
     
     func alterToFirstSectionEntity(from dto: MainPageDTO) -> FirstSectionEntity {
         let appIconImageURL = changeToURL(with: dto.artworkUrl512)
-        let downloadURL = changeToURL(with: dto.trackViewURL)
         
-        return FirstSectionEntity(appIconImageURL: appIconImageURL, appName: dto.trackName, downloadURL: downloadURL)
+        return FirstSectionEntity(appIconImage: changeToData(with: appIconImageURL), appName: dto.trackName, downloadURL: changeToURL(with: dto.trackViewURL))
     }
     
     func alterToSecondSectionEntity(from dto: MainPageDTO) -> SecondSectionEntity {
@@ -88,8 +86,21 @@ private extension ViewDefaultMainPageUsecase {
     }
     
     func alterToFourthSectionEntity(from dto: MainPageDTO) -> FourthSectionEntity {
-
-        return FourthSectionEntity(screenshotUrls: changeToURL(with: dto.screenshotUrls))
+        var datas = [Data]()
+        
+        dto.screenshotUrls.forEach {
+            guard let url = changeToURL(with: $0) else { return }
+            
+            do {
+                let data = try Data(contentsOf: url)
+                datas.append(data)
+                
+            } catch {
+                return
+            }
+        }
+        
+        return FourthSectionEntity(screenshots: datas)
     }
     
     func alterToFifthSectionEntity(from dto: MainPageDTO) -> FifthSectionEntity {
@@ -111,14 +122,16 @@ private extension ViewDefaultMainPageUsecase {
         return URL(string: string)
     }
     
-    func changeToURL(with stringArrray: [String]) -> [URL?] {
-        var tempArray = [URL?]()
+    func changeToData(with url: URL?) -> Data {
+        guard let url = url else { return Data() }
         
-        stringArrray.forEach {
-            tempArray.append(URL(string: $0))
+        do {
+            let data = try Data(contentsOf: url)
+            return data
+            
+        } catch {
+            return Data()
         }
-        
-        return tempArray
     }
     
     func calculateToday(from date: Date) -> String {
