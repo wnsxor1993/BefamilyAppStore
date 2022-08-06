@@ -35,7 +35,7 @@ struct NetworkService {
                     }
 
                     guard let data = data else {
-                        observer(.failure(NetworkError.noData))
+                        observer(.failure(DataError.noData))
                         return
                     }
 
