@@ -26,6 +26,7 @@
 		D27E66B2289E528A00C2FDB4 /* ExtraError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27E66B1289E528A00C2FDB4 /* ExtraError.swift */; };
 		D27E66B4289E535500C2FDB4 /* JSONConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27E66B3289E535500C2FDB4 /* JSONConverter.swift */; };
 		D27E66B7289E54E200C2FDB4 /* ViewMainPageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27E66B6289E54E200C2FDB4 /* ViewMainPageRepository.swift */; };
+		D27E66BB289E578F00C2FDB4 /* MainPageEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27E66BA289E578F00C2FDB4 /* MainPageEntity.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +53,7 @@
 		D27E66B1289E528A00C2FDB4 /* ExtraError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtraError.swift; sourceTree = "<group>"; };
 		D27E66B3289E535500C2FDB4 /* JSONConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONConverter.swift; sourceTree = "<group>"; };
 		D27E66B6289E54E200C2FDB4 /* ViewMainPageRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewMainPageRepository.swift; sourceTree = "<group>"; };
+		D27E66BA289E578F00C2FDB4 /* MainPageEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPageEntity.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +108,7 @@
 			children = (
 				D27E66AD289E51B900C2FDB4 /* Helper */,
 				D27E668E289E392600C2FDB4 /* PresentationLayer */,
+				D27E66B8289E577100C2FDB4 /* DomainLayer */,
 				D27E6691289E3D5500C2FDB4 /* DataLayer */,
 				D27E667A289E351300C2FDB4 /* AppDelegate.swift */,
 				D27E667C289E351300C2FDB4 /* SceneDelegate.swift */,
@@ -239,6 +242,22 @@
 			path = Protocol;
 			sourceTree = "<group>";
 		};
+		D27E66B8289E577100C2FDB4 /* DomainLayer */ = {
+			isa = PBXGroup;
+			children = (
+				D27E66B9289E578300C2FDB4 /* Entity */,
+			);
+			path = DomainLayer;
+			sourceTree = "<group>";
+		};
+		D27E66B9289E578300C2FDB4 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				D27E66BA289E578F00C2FDB4 /* MainPageEntity.swift */,
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -362,6 +381,7 @@
 				D27E6698289E3DE400C2FDB4 /* EndPointable.swift in Sources */,
 				D27E66A7289E452600C2FDB4 /* MainPageDTO.swift in Sources */,
 				D27E66A4289E44BC00C2FDB4 /* NetworkServiceable.swift in Sources */,
+				D27E66BB289E578F00C2FDB4 /* MainPageEntity.swift in Sources */,
 				D27E66A9289E4FE700C2FDB4 /* PagesArrayDTO.swift in Sources */,
 				D27E66B2289E528A00C2FDB4 /* ExtraError.swift in Sources */,
 				D27E667D289E351300C2FDB4 /* SceneDelegate.swift in Sources */,
