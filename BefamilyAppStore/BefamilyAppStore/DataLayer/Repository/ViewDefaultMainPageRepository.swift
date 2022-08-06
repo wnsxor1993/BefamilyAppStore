@@ -13,7 +13,7 @@ final class ViewDefaultMainPageRepository {
     let networkService = NetworkService()
     let disposeBag = DisposeBag()
     
-    func requestMainPageData() -> Observable<MainPageDTO> {
+    func fetchDTO() -> Observable<MainPageDTO> {
         
         return Observable.create { [weak self] observer -> Disposable in
             guard let self = self else {
@@ -23,7 +23,17 @@ final class ViewDefaultMainPageRepository {
             
             self.networkService.request(endPoint: .mainPage)
                 .subscribe { data in
+                    let jsonConverter = JSONConverter<PagesArrayDTO>()
+                    guard let pagesArrayDTO = jsonConverter.decode(data: data) else {
+                        observer.onError(DataError.decodingError)
+                        return
+                    }
                     
+                    if pagesArrayDTO.resultCount == 1 {
+                        observer.onNext(pagesArrayDTO.results[0])
+                    } else {
+                        observer.onError(ExtraError.mainPageDTOCountNotOne)
+                    }
                     
                 } onFailure: { _ in
                     observer.onError(DataError.noData)

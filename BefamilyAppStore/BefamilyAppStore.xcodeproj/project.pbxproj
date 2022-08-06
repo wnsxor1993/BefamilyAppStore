@@ -25,6 +25,7 @@
 		D27E66B0289E521800C2FDB4 /* DataError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27E66AF289E521800C2FDB4 /* DataError.swift */; };
 		D27E66B2289E528A00C2FDB4 /* ExtraError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27E66B1289E528A00C2FDB4 /* ExtraError.swift */; };
 		D27E66B4289E535500C2FDB4 /* JSONConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27E66B3289E535500C2FDB4 /* JSONConverter.swift */; };
+		D27E66B7289E54E200C2FDB4 /* ViewMainPageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27E66B6289E54E200C2FDB4 /* ViewMainPageRepository.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +51,7 @@
 		D27E66AF289E521800C2FDB4 /* DataError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataError.swift; sourceTree = "<group>"; };
 		D27E66B1289E528A00C2FDB4 /* ExtraError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtraError.swift; sourceTree = "<group>"; };
 		D27E66B3289E535500C2FDB4 /* JSONConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONConverter.swift; sourceTree = "<group>"; };
+		D27E66B6289E54E200C2FDB4 /* ViewMainPageRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewMainPageRepository.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -204,6 +206,7 @@
 			isa = PBXGroup;
 			children = (
 				D27E66AB289E50D200C2FDB4 /* ViewDefaultMainPageRepository.swift */,
+				D27E66B5289E54CE00C2FDB4 /* Protocol */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -226,6 +229,14 @@
 				D27E66B1289E528A00C2FDB4 /* ExtraError.swift */,
 			);
 			path = Discriminator;
+			sourceTree = "<group>";
+		};
+		D27E66B5289E54CE00C2FDB4 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				D27E66B6289E54E200C2FDB4 /* ViewMainPageRepository.swift */,
+			);
+			path = Protocol;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -346,6 +357,7 @@
 				D27E667F289E351300C2FDB4 /* MainViewController.swift in Sources */,
 				D27E66A1289E415500C2FDB4 /* NetworkError.swift in Sources */,
 				D27E667B289E351300C2FDB4 /* AppDelegate.swift in Sources */,
+				D27E66B7289E54E200C2FDB4 /* ViewMainPageRepository.swift in Sources */,
 				D27E669C289E3E0900C2FDB4 /* HTTPMethod.swift in Sources */,
 				D27E6698289E3DE400C2FDB4 /* EndPointable.swift in Sources */,
 				D27E66A7289E452600C2FDB4 /* MainPageDTO.swift in Sources */,
