@@ -35,6 +35,7 @@
 		D27E66C9289E6B3800C2FDB4 /* FourthSectionEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27E66C8289E6B3800C2FDB4 /* FourthSectionEntity.swift */; };
 		D27E66CB289E6B6900C2FDB4 /* FifthSectionEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27E66CA289E6B6900C2FDB4 /* FifthSectionEntity.swift */; };
 		D27E66CD289E6BB500C2FDB4 /* SixthSectionEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27E66CC289E6BB500C2FDB4 /* SixthSectionEntity.swift */; };
+		D27E66D2289E8D8800C2FDB4 /* ViewMainPageUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27E66D1289E8D8800C2FDB4 /* ViewMainPageUsecase.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -70,6 +71,7 @@
 		D27E66C8289E6B3800C2FDB4 /* FourthSectionEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FourthSectionEntity.swift; sourceTree = "<group>"; };
 		D27E66CA289E6B6900C2FDB4 /* FifthSectionEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FifthSectionEntity.swift; sourceTree = "<group>"; };
 		D27E66CC289E6BB500C2FDB4 /* SixthSectionEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SixthSectionEntity.swift; sourceTree = "<group>"; };
+		D27E66D1289E8D8800C2FDB4 /* ViewMainPageUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewMainPageUsecase.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -280,6 +282,7 @@
 			isa = PBXGroup;
 			children = (
 				D27E66BD289E5DAD00C2FDB4 /* ViewDefaultMainPageUsecase.swift */,
+				D27E66D0289E8D7700C2FDB4 /* Protocol */,
 			);
 			path = MainUsecase;
 			sourceTree = "<group>";
@@ -296,6 +299,14 @@
 				D27E66CC289E6BB500C2FDB4 /* SixthSectionEntity.swift */,
 			);
 			path = Subordination;
+			sourceTree = "<group>";
+		};
+		D27E66D0289E8D7700C2FDB4 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				D27E66D1289E8D8800C2FDB4 /* ViewMainPageUsecase.swift */,
+			);
+			path = Protocol;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -412,6 +423,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D27E66D2289E8D8800C2FDB4 /* ViewMainPageUsecase.swift in Sources */,
 				D27E66AC289E50D200C2FDB4 /* ViewDefaultMainPageRepository.swift in Sources */,
 				D27E667F289E351300C2FDB4 /* MainViewController.swift in Sources */,
 				D27E66A1289E415500C2FDB4 /* NetworkError.swift in Sources */,
