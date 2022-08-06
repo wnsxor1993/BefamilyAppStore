@@ -54,7 +54,7 @@ private extension MainViewController {
             titleView.topAnchor.constraint(equalTo: contentView.topAnchor),
             titleView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             titleView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            titleView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.18)
+            titleView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.16)
         ])
         
         

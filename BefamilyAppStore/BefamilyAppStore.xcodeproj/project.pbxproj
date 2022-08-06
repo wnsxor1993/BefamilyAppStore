@@ -29,7 +29,7 @@
 		D27E66BB289E578F00C2FDB4 /* MainPageEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27E66BA289E578F00C2FDB4 /* MainPageEntity.swift */; };
 		D27E66BE289E5DAD00C2FDB4 /* ViewDefaultMainPageUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27E66BD289E5DAD00C2FDB4 /* ViewDefaultMainPageUsecase.swift */; };
 		D27E66C1289E696D00C2FDB4 /* NavigationTitleEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27E66C0289E696D00C2FDB4 /* NavigationTitleEntity.swift */; };
-		D27E66C3289E69CC00C2FDB4 /* FirstSectionEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27E66C2289E69CC00C2FDB4 /* FirstSectionEntity.swift */; };
+		D27E66C3289E69CC00C2FDB4 /* MainTitleEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27E66C2289E69CC00C2FDB4 /* MainTitleEntity.swift */; };
 		D27E66C5289E6A5300C2FDB4 /* SecondSectionEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27E66C4289E6A5300C2FDB4 /* SecondSectionEntity.swift */; };
 		D27E66C7289E6B1E00C2FDB4 /* ThirdSectionEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27E66C6289E6B1E00C2FDB4 /* ThirdSectionEntity.swift */; };
 		D27E66C9289E6B3800C2FDB4 /* FourthSectionEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27E66C8289E6B3800C2FDB4 /* FourthSectionEntity.swift */; };
@@ -39,6 +39,7 @@
 		D27E66D5289E8ECF00C2FDB4 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27E66D4289E8ECF00C2FDB4 /* MainViewModel.swift */; };
 		D27E66D7289EA0E700C2FDB4 /* MainTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27E66D6289EA0E700C2FDB4 /* MainTitleView.swift */; };
 		D27E66DA289EA3B700C2FDB4 /* UIView +.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27E66D9289EA3B700C2FDB4 /* UIView +.swift */; };
+		D27E66DC289EB65300C2FDB4 /* UIStackView +.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27E66DB289EB65300C2FDB4 /* UIStackView +.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -68,7 +69,7 @@
 		D27E66BA289E578F00C2FDB4 /* MainPageEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPageEntity.swift; sourceTree = "<group>"; };
 		D27E66BD289E5DAD00C2FDB4 /* ViewDefaultMainPageUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewDefaultMainPageUsecase.swift; sourceTree = "<group>"; };
 		D27E66C0289E696D00C2FDB4 /* NavigationTitleEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationTitleEntity.swift; sourceTree = "<group>"; };
-		D27E66C2289E69CC00C2FDB4 /* FirstSectionEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstSectionEntity.swift; sourceTree = "<group>"; };
+		D27E66C2289E69CC00C2FDB4 /* MainTitleEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTitleEntity.swift; sourceTree = "<group>"; };
 		D27E66C4289E6A5300C2FDB4 /* SecondSectionEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondSectionEntity.swift; sourceTree = "<group>"; };
 		D27E66C6289E6B1E00C2FDB4 /* ThirdSectionEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdSectionEntity.swift; sourceTree = "<group>"; };
 		D27E66C8289E6B3800C2FDB4 /* FourthSectionEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FourthSectionEntity.swift; sourceTree = "<group>"; };
@@ -78,6 +79,7 @@
 		D27E66D4289E8ECF00C2FDB4 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		D27E66D6289EA0E700C2FDB4 /* MainTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTitleView.swift; sourceTree = "<group>"; };
 		D27E66D9289EA3B700C2FDB4 /* UIView +.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView +.swift"; sourceTree = "<group>"; };
+		D27E66DB289EB65300C2FDB4 /* UIStackView +.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView +.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -300,7 +302,7 @@
 			isa = PBXGroup;
 			children = (
 				D27E66C0289E696D00C2FDB4 /* NavigationTitleEntity.swift */,
-				D27E66C2289E69CC00C2FDB4 /* FirstSectionEntity.swift */,
+				D27E66C2289E69CC00C2FDB4 /* MainTitleEntity.swift */,
 				D27E66C4289E6A5300C2FDB4 /* SecondSectionEntity.swift */,
 				D27E66C6289E6B1E00C2FDB4 /* ThirdSectionEntity.swift */,
 				D27E66C8289E6B3800C2FDB4 /* FourthSectionEntity.swift */,
@@ -330,6 +332,7 @@
 			isa = PBXGroup;
 			children = (
 				D27E66D9289EA3B700C2FDB4 /* UIView +.swift */,
+				D27E66DB289EB65300C2FDB4 /* UIStackView +.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -454,6 +457,7 @@
 				D27E66D7289EA0E700C2FDB4 /* MainTitleView.swift in Sources */,
 				D27E66A1289E415500C2FDB4 /* NetworkError.swift in Sources */,
 				D27E66CD289E6BB500C2FDB4 /* SixthSectionEntity.swift in Sources */,
+				D27E66DC289EB65300C2FDB4 /* UIStackView +.swift in Sources */,
 				D27E66C1289E696D00C2FDB4 /* NavigationTitleEntity.swift in Sources */,
 				D27E66C7289E6B1E00C2FDB4 /* ThirdSectionEntity.swift in Sources */,
 				D27E667B289E351300C2FDB4 /* AppDelegate.swift in Sources */,
@@ -462,7 +466,7 @@
 				D27E66B7289E54E200C2FDB4 /* ViewMainPageRepository.swift in Sources */,
 				D27E669C289E3E0900C2FDB4 /* HTTPMethod.swift in Sources */,
 				D27E6698289E3DE400C2FDB4 /* EndPointable.swift in Sources */,
-				D27E66C3289E69CC00C2FDB4 /* FirstSectionEntity.swift in Sources */,
+				D27E66C3289E69CC00C2FDB4 /* MainTitleEntity.swift in Sources */,
 				D27E66A7289E452600C2FDB4 /* MainPageDTO.swift in Sources */,
 				D27E66A4289E44BC00C2FDB4 /* NetworkServiceable.swift in Sources */,
 				D27E66BB289E578F00C2FDB4 /* MainPageEntity.swift in Sources */,

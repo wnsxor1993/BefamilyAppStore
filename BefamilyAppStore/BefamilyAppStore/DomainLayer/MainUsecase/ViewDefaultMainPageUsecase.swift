@@ -48,7 +48,7 @@ private extension ViewDefaultMainPageUsecase {
     
     func alterToEntity(from dto: MainPageDTO) -> MainPageEntity {
         
-        return MainPageEntity(naviTitle: alterToNaviEntity(from: dto), firstSection: alterToFirstSectionEntity(from: dto), secondSection: alterToSecondSectionEntity(from: dto), thirdSection: alterToThirdSectionEntity(from: dto), fourthSection: alterToFourthSectionEntity(from: dto), fifthSection: alterToFifthSectionEntity(from: dto), SixthSection: alterToSixthSectionEntity(from: dto))
+        return MainPageEntity(naviTitle: alterToNaviEntity(from: dto), mainTitle: alterToFirstSectionEntity(from: dto), secondSection: alterToSecondSectionEntity(from: dto), thirdSection: alterToThirdSectionEntity(from: dto), fourthSection: alterToFourthSectionEntity(from: dto), fifthSection: alterToFifthSectionEntity(from: dto), SixthSection: alterToSixthSectionEntity(from: dto))
     }
 }
 
@@ -62,10 +62,10 @@ private extension ViewDefaultMainPageUsecase {
         return NavigationTitleEntity(navigationTitleImage: changeToData(with: naviTitleImageURL), downloadURL: changeToURL(with: dto.trackViewURL))
     }
     
-    func alterToFirstSectionEntity(from dto: MainPageDTO) -> FirstSectionEntity {
+    func alterToFirstSectionEntity(from dto: MainPageDTO) -> MainTitleEntity {
         let appIconImageURL = changeToURL(with: dto.artworkUrl512)
         
-        return FirstSectionEntity(appIconImage: changeToData(with: appIconImageURL), appName: dto.trackName, downloadURL: changeToURL(with: dto.trackViewURL))
+        return MainTitleEntity(appIconImage: changeToData(with: appIconImageURL), appName: dto.trackName, downloadURL: changeToURL(with: dto.trackViewURL))
     }
     
     func alterToSecondSectionEntity(from dto: MainPageDTO) -> SecondSectionEntity {

@@ -19,9 +19,19 @@ final class MainTitleView: UIView {
         return imageView
     }()
     
+    private var stackView: UIStackView = {
+        let stack = UIStackView()
+        stack.axis = .vertical
+        stack.distribution = .fill
+        stack.spacing = 5
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        
+        return stack
+    }()
+    
     private var titleLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 22, weight: .bold)
+        label.font = .systemFont(ofSize: 23, weight: .bold)
         label.textColor = .white
         label.numberOfLines = 2
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -31,7 +41,7 @@ final class MainTitleView: UIView {
     
     private var subLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 14, weight: .bold)
+        label.font = .systemFont(ofSize: 16, weight: .bold)
         label.textColor = .gray
         label.numberOfLines = 1
         label.text = "가까운 사람들끼리 쓰는 메신저"
@@ -44,10 +54,10 @@ final class MainTitleView: UIView {
         let button = UIButton()
         button.tintColor = .white
         button.titleLabel?.textAlignment = .center
-        button.titleLabel?.font = .systemFont(ofSize: 15, weight: .bold)
+        button.titleLabel?.font = .systemFont(ofSize: 17, weight: .bold)
         button.backgroundColor = .blue
         button.clipsToBounds = true
-        button.layer.cornerRadius = 10
+        button.layer.cornerRadius = 15
         button.setTitle("받기", for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         
@@ -82,8 +92,8 @@ final class MainTitleView: UIView {
 private extension MainTitleView {
     
     func configureLayouts() {
-        addSubviews(titleImageView, titleLabel, subLabel, downButton)
-        titleLabel.sizeToFit()
+        addSubviews(titleImageView, stackView, downButton)
+        stackView.addArrangedSubviews(titleLabel, subLabel)
         
         NSLayoutConstraint.activate([
             titleImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
@@ -93,22 +103,16 @@ private extension MainTitleView {
         ])
         
         NSLayoutConstraint.activate([
-            titleLabel.leadingAnchor.constraint(equalTo: titleImageView.trailingAnchor, constant: 15),
-            titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
-            titleLabel.topAnchor.constraint(equalTo: topAnchor)
-        ])
-        
-        NSLayoutConstraint.activate([
-            subLabel.leadingAnchor.constraint(equalTo: titleImageView.trailingAnchor, constant: 15),
-            subLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
-            subLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor)
+            stackView.leadingAnchor.constraint(equalTo: titleImageView.trailingAnchor, constant: 15),
+            stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
+            stackView.topAnchor.constraint(equalTo: topAnchor)
         ])
         
         NSLayoutConstraint.activate([
             downButton.leadingAnchor.constraint(equalTo: titleImageView.trailingAnchor, constant: 15),
-            downButton.topAnchor.constraint(equalTo: subLabel.bottomAnchor, constant: 10),
             downButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10),
-            downButton.widthAnchor.constraint(equalTo: subLabel.widthAnchor, multiplier: 0.35)
+            downButton.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 0.4),
+            downButton.heightAnchor.constraint(equalTo: downButton.widthAnchor, multiplier: 0.35)
         ])
     }
 }
