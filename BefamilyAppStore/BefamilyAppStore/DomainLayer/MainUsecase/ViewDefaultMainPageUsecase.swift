@@ -15,8 +15,12 @@ final class ViewDefaultMainPageUsecase: ViewMainPageUsecase {
     
     let disposeBag = DisposeBag()
     
-    init(mainRepo: ViewMainPageRepository = ViewDefaultMainPageRepository()) {
+    init(mainRepo: ViewMainPageRepository) {
         self.mainRepository = mainRepo
+    }
+    
+    convenience init() {
+        self.init(mainRepo: ViewDefaultMainPageRepository())
     }
     
     func executeMainData() {
