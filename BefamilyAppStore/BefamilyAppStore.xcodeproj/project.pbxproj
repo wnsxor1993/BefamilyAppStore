@@ -10,9 +10,12 @@
 		44E66C87376FB2B3A73FAE7B /* Pods_BefamilyAppStore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E0AB42286546B483890220F /* Pods_BefamilyAppStore.framework */; };
 		D27E667B289E351300C2FDB4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27E667A289E351300C2FDB4 /* AppDelegate.swift */; };
 		D27E667D289E351300C2FDB4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27E667C289E351300C2FDB4 /* SceneDelegate.swift */; };
-		D27E667F289E351300C2FDB4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27E667E289E351300C2FDB4 /* ViewController.swift */; };
+		D27E667F289E351300C2FDB4 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27E667E289E351300C2FDB4 /* MainViewController.swift */; };
 		D27E6684289E351300C2FDB4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D27E6683289E351300C2FDB4 /* Assets.xcassets */; };
 		D27E6687289E351300C2FDB4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D27E6685289E351300C2FDB4 /* LaunchScreen.storyboard */; };
+		D27E6695289E3DC800C2FDB4 /* EndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27E6694289E3DC800C2FDB4 /* EndPoint.swift */; };
+		D27E6698289E3DE400C2FDB4 /* EndPointable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27E6697289E3DE400C2FDB4 /* EndPointable.swift */; };
+		D27E669C289E3E0900C2FDB4 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27E669B289E3E0900C2FDB4 /* HTTPMethod.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,10 +25,13 @@
 		D27E6677289E351300C2FDB4 /* BefamilyAppStore.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BefamilyAppStore.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D27E667A289E351300C2FDB4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D27E667C289E351300C2FDB4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		D27E667E289E351300C2FDB4 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		D27E667E289E351300C2FDB4 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		D27E6683289E351300C2FDB4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D27E6686289E351300C2FDB4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D27E6688289E351300C2FDB4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D27E6694289E3DC800C2FDB4 /* EndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPoint.swift; sourceTree = "<group>"; };
+		D27E6697289E3DE400C2FDB4 /* EndPointable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPointable.swift; sourceTree = "<group>"; };
+		D27E669B289E3E0900C2FDB4 /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,14 +84,73 @@
 		D27E6679289E351300C2FDB4 /* BefamilyAppStore */ = {
 			isa = PBXGroup;
 			children = (
+				D27E668E289E392600C2FDB4 /* PresentationLayer */,
+				D27E6691289E3D5500C2FDB4 /* DataLayer */,
 				D27E667A289E351300C2FDB4 /* AppDelegate.swift */,
 				D27E667C289E351300C2FDB4 /* SceneDelegate.swift */,
-				D27E667E289E351300C2FDB4 /* ViewController.swift */,
 				D27E6683289E351300C2FDB4 /* Assets.xcassets */,
 				D27E6685289E351300C2FDB4 /* LaunchScreen.storyboard */,
 				D27E6688289E351300C2FDB4 /* Info.plist */,
 			);
 			path = BefamilyAppStore;
+			sourceTree = "<group>";
+		};
+		D27E668E289E392600C2FDB4 /* PresentationLayer */ = {
+			isa = PBXGroup;
+			children = (
+				D27E668F289E393C00C2FDB4 /* MainScene */,
+			);
+			path = PresentationLayer;
+			sourceTree = "<group>";
+		};
+		D27E668F289E393C00C2FDB4 /* MainScene */ = {
+			isa = PBXGroup;
+			children = (
+				D27E6690289E394300C2FDB4 /* View */,
+			);
+			path = MainScene;
+			sourceTree = "<group>";
+		};
+		D27E6690289E394300C2FDB4 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D27E667E289E351300C2FDB4 /* MainViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		D27E6691289E3D5500C2FDB4 /* DataLayer */ = {
+			isa = PBXGroup;
+			children = (
+				D27E6692289E3D8700C2FDB4 /* Network */,
+			);
+			path = DataLayer;
+			sourceTree = "<group>";
+		};
+		D27E6692289E3D8700C2FDB4 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				D27E6693289E3D9300C2FDB4 /* EndPoint */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		D27E6693289E3D9300C2FDB4 /* EndPoint */ = {
+			isa = PBXGroup;
+			children = (
+				D27E6694289E3DC800C2FDB4 /* EndPoint.swift */,
+				D27E669B289E3E0900C2FDB4 /* HTTPMethod.swift */,
+				D27E6696289E3DD300C2FDB4 /* Protocol */,
+			);
+			path = EndPoint;
+			sourceTree = "<group>";
+		};
+		D27E6696289E3DD300C2FDB4 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				D27E6697289E3DE400C2FDB4 /* EndPointable.swift */,
+			);
+			path = Protocol;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -202,9 +267,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D27E667F289E351300C2FDB4 /* ViewController.swift in Sources */,
+				D27E667F289E351300C2FDB4 /* MainViewController.swift in Sources */,
 				D27E667B289E351300C2FDB4 /* AppDelegate.swift in Sources */,
+				D27E669C289E3E0900C2FDB4 /* HTTPMethod.swift in Sources */,
+				D27E6698289E3DE400C2FDB4 /* EndPointable.swift in Sources */,
 				D27E667D289E351300C2FDB4 /* SceneDelegate.swift in Sources */,
+				D27E6695289E3DC800C2FDB4 /* EndPoint.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
