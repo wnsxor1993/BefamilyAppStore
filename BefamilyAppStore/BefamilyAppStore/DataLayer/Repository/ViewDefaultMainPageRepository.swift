@@ -8,7 +8,7 @@
 import Foundation
 import RxSwift
 
-final class ViewDefaultMainPageRepository {
+final class ViewDefaultMainPageRepository: ViewMainPageRepository {
     
     let networkService = NetworkService()
     let disposeBag = DisposeBag()

@@ -26,6 +26,16 @@
 		D27E66B2289E528A00C2FDB4 /* ExtraError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27E66B1289E528A00C2FDB4 /* ExtraError.swift */; };
 		D27E66B4289E535500C2FDB4 /* JSONConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27E66B3289E535500C2FDB4 /* JSONConverter.swift */; };
 		D27E66B7289E54E200C2FDB4 /* ViewMainPageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27E66B6289E54E200C2FDB4 /* ViewMainPageRepository.swift */; };
+		D27E66BB289E578F00C2FDB4 /* MainPageEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27E66BA289E578F00C2FDB4 /* MainPageEntity.swift */; };
+		D27E66BE289E5DAD00C2FDB4 /* ViewDefaultMainPageUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27E66BD289E5DAD00C2FDB4 /* ViewDefaultMainPageUsecase.swift */; };
+		D27E66C1289E696D00C2FDB4 /* NavigationTitleEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27E66C0289E696D00C2FDB4 /* NavigationTitleEntity.swift */; };
+		D27E66C3289E69CC00C2FDB4 /* FirstSectionEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27E66C2289E69CC00C2FDB4 /* FirstSectionEntity.swift */; };
+		D27E66C5289E6A5300C2FDB4 /* SecondSectionEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27E66C4289E6A5300C2FDB4 /* SecondSectionEntity.swift */; };
+		D27E66C7289E6B1E00C2FDB4 /* ThirdSectionEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27E66C6289E6B1E00C2FDB4 /* ThirdSectionEntity.swift */; };
+		D27E66C9289E6B3800C2FDB4 /* FourthSectionEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27E66C8289E6B3800C2FDB4 /* FourthSectionEntity.swift */; };
+		D27E66CB289E6B6900C2FDB4 /* FifthSectionEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27E66CA289E6B6900C2FDB4 /* FifthSectionEntity.swift */; };
+		D27E66CD289E6BB500C2FDB4 /* SixthSectionEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27E66CC289E6BB500C2FDB4 /* SixthSectionEntity.swift */; };
+		D27E66D2289E8D8800C2FDB4 /* ViewMainPageUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27E66D1289E8D8800C2FDB4 /* ViewMainPageUsecase.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +62,16 @@
 		D27E66B1289E528A00C2FDB4 /* ExtraError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtraError.swift; sourceTree = "<group>"; };
 		D27E66B3289E535500C2FDB4 /* JSONConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONConverter.swift; sourceTree = "<group>"; };
 		D27E66B6289E54E200C2FDB4 /* ViewMainPageRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewMainPageRepository.swift; sourceTree = "<group>"; };
+		D27E66BA289E578F00C2FDB4 /* MainPageEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPageEntity.swift; sourceTree = "<group>"; };
+		D27E66BD289E5DAD00C2FDB4 /* ViewDefaultMainPageUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewDefaultMainPageUsecase.swift; sourceTree = "<group>"; };
+		D27E66C0289E696D00C2FDB4 /* NavigationTitleEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationTitleEntity.swift; sourceTree = "<group>"; };
+		D27E66C2289E69CC00C2FDB4 /* FirstSectionEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstSectionEntity.swift; sourceTree = "<group>"; };
+		D27E66C4289E6A5300C2FDB4 /* SecondSectionEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondSectionEntity.swift; sourceTree = "<group>"; };
+		D27E66C6289E6B1E00C2FDB4 /* ThirdSectionEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdSectionEntity.swift; sourceTree = "<group>"; };
+		D27E66C8289E6B3800C2FDB4 /* FourthSectionEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FourthSectionEntity.swift; sourceTree = "<group>"; };
+		D27E66CA289E6B6900C2FDB4 /* FifthSectionEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FifthSectionEntity.swift; sourceTree = "<group>"; };
+		D27E66CC289E6BB500C2FDB4 /* SixthSectionEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SixthSectionEntity.swift; sourceTree = "<group>"; };
+		D27E66D1289E8D8800C2FDB4 /* ViewMainPageUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewMainPageUsecase.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +126,7 @@
 			children = (
 				D27E66AD289E51B900C2FDB4 /* Helper */,
 				D27E668E289E392600C2FDB4 /* PresentationLayer */,
+				D27E66B8289E577100C2FDB4 /* DomainLayer */,
 				D27E6691289E3D5500C2FDB4 /* DataLayer */,
 				D27E667A289E351300C2FDB4 /* AppDelegate.swift */,
 				D27E667C289E351300C2FDB4 /* SceneDelegate.swift */,
@@ -239,6 +260,55 @@
 			path = Protocol;
 			sourceTree = "<group>";
 		};
+		D27E66B8289E577100C2FDB4 /* DomainLayer */ = {
+			isa = PBXGroup;
+			children = (
+				D27E66BC289E5D8B00C2FDB4 /* MainUsecase */,
+				D27E66B9289E578300C2FDB4 /* Entity */,
+			);
+			path = DomainLayer;
+			sourceTree = "<group>";
+		};
+		D27E66B9289E578300C2FDB4 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				D27E66BA289E578F00C2FDB4 /* MainPageEntity.swift */,
+				D27E66BF289E692000C2FDB4 /* Subordination */,
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
+		D27E66BC289E5D8B00C2FDB4 /* MainUsecase */ = {
+			isa = PBXGroup;
+			children = (
+				D27E66BD289E5DAD00C2FDB4 /* ViewDefaultMainPageUsecase.swift */,
+				D27E66D0289E8D7700C2FDB4 /* Protocol */,
+			);
+			path = MainUsecase;
+			sourceTree = "<group>";
+		};
+		D27E66BF289E692000C2FDB4 /* Subordination */ = {
+			isa = PBXGroup;
+			children = (
+				D27E66C0289E696D00C2FDB4 /* NavigationTitleEntity.swift */,
+				D27E66C2289E69CC00C2FDB4 /* FirstSectionEntity.swift */,
+				D27E66C4289E6A5300C2FDB4 /* SecondSectionEntity.swift */,
+				D27E66C6289E6B1E00C2FDB4 /* ThirdSectionEntity.swift */,
+				D27E66C8289E6B3800C2FDB4 /* FourthSectionEntity.swift */,
+				D27E66CA289E6B6900C2FDB4 /* FifthSectionEntity.swift */,
+				D27E66CC289E6BB500C2FDB4 /* SixthSectionEntity.swift */,
+			);
+			path = Subordination;
+			sourceTree = "<group>";
+		};
+		D27E66D0289E8D7700C2FDB4 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				D27E66D1289E8D8800C2FDB4 /* ViewMainPageUsecase.swift */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -353,21 +423,31 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D27E66D2289E8D8800C2FDB4 /* ViewMainPageUsecase.swift in Sources */,
 				D27E66AC289E50D200C2FDB4 /* ViewDefaultMainPageRepository.swift in Sources */,
 				D27E667F289E351300C2FDB4 /* MainViewController.swift in Sources */,
 				D27E66A1289E415500C2FDB4 /* NetworkError.swift in Sources */,
+				D27E66CD289E6BB500C2FDB4 /* SixthSectionEntity.swift in Sources */,
+				D27E66C1289E696D00C2FDB4 /* NavigationTitleEntity.swift in Sources */,
+				D27E66C7289E6B1E00C2FDB4 /* ThirdSectionEntity.swift in Sources */,
 				D27E667B289E351300C2FDB4 /* AppDelegate.swift in Sources */,
+				D27E66C9289E6B3800C2FDB4 /* FourthSectionEntity.swift in Sources */,
+				D27E66BE289E5DAD00C2FDB4 /* ViewDefaultMainPageUsecase.swift in Sources */,
 				D27E66B7289E54E200C2FDB4 /* ViewMainPageRepository.swift in Sources */,
 				D27E669C289E3E0900C2FDB4 /* HTTPMethod.swift in Sources */,
 				D27E6698289E3DE400C2FDB4 /* EndPointable.swift in Sources */,
+				D27E66C3289E69CC00C2FDB4 /* FirstSectionEntity.swift in Sources */,
 				D27E66A7289E452600C2FDB4 /* MainPageDTO.swift in Sources */,
 				D27E66A4289E44BC00C2FDB4 /* NetworkServiceable.swift in Sources */,
+				D27E66BB289E578F00C2FDB4 /* MainPageEntity.swift in Sources */,
 				D27E66A9289E4FE700C2FDB4 /* PagesArrayDTO.swift in Sources */,
 				D27E66B2289E528A00C2FDB4 /* ExtraError.swift in Sources */,
+				D27E66C5289E6A5300C2FDB4 /* SecondSectionEntity.swift in Sources */,
 				D27E667D289E351300C2FDB4 /* SceneDelegate.swift in Sources */,
 				D27E6695289E3DC800C2FDB4 /* EndPoint.swift in Sources */,
 				D27E66B0289E521800C2FDB4 /* DataError.swift in Sources */,
 				D27E669F289E40CB00C2FDB4 /* NetworkService.swift in Sources */,
+				D27E66CB289E6B6900C2FDB4 /* FifthSectionEntity.swift in Sources */,
 				D27E66B4289E535500C2FDB4 /* JSONConverter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

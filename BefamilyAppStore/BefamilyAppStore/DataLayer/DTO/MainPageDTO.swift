@@ -19,7 +19,7 @@ struct MainPageDTO: Codable {
     let currentVersionReleaseDate: Date
     let releaseNotes, primaryGenreName: String
     let primaryGenreID: Int
-    let resultDescription, currency: String
+    let description, currency: String
     let isVppDeviceBasedLicensingEnabled: Bool
     let sellerName, bundleID: String
     let genreIDS: [String]
@@ -44,8 +44,7 @@ struct MainPageDTO: Codable {
         case artistViewURL = "artistViewUrl"
         case artworkUrl60, screenshotUrls, currentVersionReleaseDate, releaseNotes, primaryGenreName
         case primaryGenreID = "primaryGenreId"
-        case resultDescription = "description"
-        case currency, isVppDeviceBasedLicensingEnabled, sellerName
+        case description, currency, isVppDeviceBasedLicensingEnabled, sellerName
         case bundleID = "bundleId"
         case genreIDS = "genreIds"
         case releaseDate

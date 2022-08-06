@@ -11,4 +11,5 @@ enum DataError: Error {
     case noData
     case decodingError
     case encodingError
+    case entityConvertingError
 }
