@@ -16,6 +16,9 @@
 		D27E6695289E3DC800C2FDB4 /* EndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27E6694289E3DC800C2FDB4 /* EndPoint.swift */; };
 		D27E6698289E3DE400C2FDB4 /* EndPointable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27E6697289E3DE400C2FDB4 /* EndPointable.swift */; };
 		D27E669C289E3E0900C2FDB4 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27E669B289E3E0900C2FDB4 /* HTTPMethod.swift */; };
+		D27E669F289E40CB00C2FDB4 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27E669E289E40CB00C2FDB4 /* NetworkService.swift */; };
+		D27E66A1289E415500C2FDB4 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27E66A0289E415500C2FDB4 /* NetworkError.swift */; };
+		D27E66A4289E44BC00C2FDB4 /* NetworkServiceable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27E66A3289E44BC00C2FDB4 /* NetworkServiceable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +35,9 @@
 		D27E6694289E3DC800C2FDB4 /* EndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPoint.swift; sourceTree = "<group>"; };
 		D27E6697289E3DE400C2FDB4 /* EndPointable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPointable.swift; sourceTree = "<group>"; };
 		D27E669B289E3E0900C2FDB4 /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
+		D27E669E289E40CB00C2FDB4 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		D27E66A0289E415500C2FDB4 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
+		D27E66A3289E44BC00C2FDB4 /* NetworkServiceable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +129,7 @@
 			isa = PBXGroup;
 			children = (
 				D27E6692289E3D8700C2FDB4 /* Network */,
+				D27E669D289E40A700C2FDB4 /* Service */,
 			);
 			path = DataLayer;
 			sourceTree = "<group>";
@@ -149,6 +156,24 @@
 			isa = PBXGroup;
 			children = (
 				D27E6697289E3DE400C2FDB4 /* EndPointable.swift */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
+		D27E669D289E40A700C2FDB4 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				D27E669E289E40CB00C2FDB4 /* NetworkService.swift */,
+				D27E66A0289E415500C2FDB4 /* NetworkError.swift */,
+				D27E66A2289E44A700C2FDB4 /* Protocol */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		D27E66A2289E44A700C2FDB4 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				D27E66A3289E44BC00C2FDB4 /* NetworkServiceable.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -268,11 +293,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				D27E667F289E351300C2FDB4 /* MainViewController.swift in Sources */,
+				D27E66A1289E415500C2FDB4 /* NetworkError.swift in Sources */,
 				D27E667B289E351300C2FDB4 /* AppDelegate.swift in Sources */,
 				D27E669C289E3E0900C2FDB4 /* HTTPMethod.swift in Sources */,
 				D27E6698289E3DE400C2FDB4 /* EndPointable.swift in Sources */,
+				D27E66A4289E44BC00C2FDB4 /* NetworkServiceable.swift in Sources */,
 				D27E667D289E351300C2FDB4 /* SceneDelegate.swift in Sources */,
 				D27E6695289E3DC800C2FDB4 /* EndPoint.swift in Sources */,
+				D27E669F289E40CB00C2FDB4 /* NetworkService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
