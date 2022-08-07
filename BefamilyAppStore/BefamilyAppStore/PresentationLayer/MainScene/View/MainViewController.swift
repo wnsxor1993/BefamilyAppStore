@@ -53,12 +53,12 @@ final class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        navigationController?.navigationBar.backgroundColor = .white
         configureLayouts()
         configureBinding()
         configureInnerAction()
         mainViewModel.enquireMainPageData()
-        self.navigationController?.navigationBar.backgroundColor = .white
-        self.scrollView.delegate = self
+        scrollView.delegate = self
     }
 }
 
@@ -91,6 +91,8 @@ extension MainViewController: UIScrollViewDelegate {
     }
 }
 
+
+// MARK: Layout Setting
 private extension MainViewController {
     
     func configureLayouts() {
@@ -165,6 +167,27 @@ private extension MainViewController {
         ])
     }
     
+    func setContentViewHeight() {
+        NSLayoutConstraint.deactivate(contentViewHeightConstraint)
+
+        contentViewHeightConstraint = [contentView.heightAnchor.constraint(equalToConstant: contentViewHeight)]
+        NSLayoutConstraint.activate(contentViewHeightConstraint)
+        
+        titleView.layer.addBorder([.bottom], color: .gray, width: 0.5)
+    }
+    
+    func replaceFeatureViewHeight() {
+        NSLayoutConstraint.deactivate(featureViewHeightConstraint)
+        
+        featureViewHeightConstraint = [featureView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.3)]
+        NSLayoutConstraint.activate(featureViewHeightConstraint)
+    }
+}
+
+
+// MARK: Binding Setting
+private extension MainViewController {
+    
     func configureBinding() {
         let output = mainViewModel.transform(input: MainViewModel.Input(titleDownButtonDidTapEvent: titleView.connectAction()), disposeBag: disposeBag)
         
@@ -176,22 +199,10 @@ private extension MainViewController {
                 
                 self.titleView.set(with: entity.mainTitle)
                 self.mainViewModel.enquireMainTitleImage(with: entity.mainTitle.appIconImageURL)
-                
-                self.subDescriptionDatasource = CollectionViewDatasource(entity.subDescription, reuseIdentifier: SubDescriptionCell.reuseIdentifier) { (data: SubDescriptionEntity, cell: SubDescriptionCell) in
-                    cell.set(itemSection: data.index, entity: data)
-                }
-                self.subDescriptionCollectionView.dataSource = self.subDescriptionDatasource
-                self.subDescriptionCollectionView.reloadData()
-                
-                self.infomationDatasource = TableViewDatasource(entity.infomation, reuseIdentifier: InformationCell.reuseIdentifier) { (data: InfomationEntity, cell: InformationCell) in
-                    cell.set(with: data)
-                }
-                self.infomationView.set(delegate: self, dataSource: self.infomationDatasource)
-                self.infomationView.reloadTableView()
-                
                 self.featureView.set(with: entity.newFeature)
                 self.descriptionView.set(with: entity.description)
                 
+                self.setDatasourceWhen(receive: entity)
                 self.mainViewModel.enquireScreenShotImages(with: entity.screenshot)
             }
             .disposed(by: disposeBag)
@@ -217,12 +228,7 @@ private extension MainViewController {
             .observe(on: ConcurrentMainScheduler.instance)
             .bind { [weak self] images in
                 guard let self = self else { return }
-                self.screenshotDatasource = CollectionViewDatasource(images, reuseIdentifier: ScreenshotCell.reuseIdentifier) { (image: UIImage, cell: ScreenshotCell) in
-                    cell.set(image: image)
-                }
-                self.screenView.calculateItemSize()
-                self.screenView.set(delegate: self, dataSource: self.screenshotDatasource)
-                self.screenView.reloadCollectionView()
+                self.setDatasourceWhen(receive: images)
                 
                 UIView.animate(withDuration: 0) {
                     self.setContentViewHeight()
@@ -254,20 +260,32 @@ private extension MainViewController {
             }
             .disposed(by: disposeBag)
     }
-    
-    func setContentViewHeight() {
-        NSLayoutConstraint.deactivate(contentViewHeightConstraint)
+}
 
-        contentViewHeightConstraint = [contentView.heightAnchor.constraint(equalToConstant: contentViewHeight)]
-        NSLayoutConstraint.activate(contentViewHeightConstraint)
+
+// MARK: Collection/TableView datasource setting with reload
+private extension MainViewController {
+
+    func setDatasourceWhen(receive entity: MainPageEntity) {
+        subDescriptionDatasource = CollectionViewDatasource(entity.subDescription, reuseIdentifier: SubDescriptionCell.reuseIdentifier) { (data: SubDescriptionEntity, cell: SubDescriptionCell) in
+            cell.set(itemSection: data.index, entity: data)
+        }
+        subDescriptionCollectionView.dataSource = subDescriptionDatasource
+        subDescriptionCollectionView.reloadData()
         
-        titleView.layer.addBorder([.bottom], color: .gray, width: 0.5)
+        infomationDatasource = TableViewDatasource(entity.infomation, reuseIdentifier: InformationCell.reuseIdentifier) { (data: InfomationEntity, cell: InformationCell) in
+            cell.set(with: data)
+        }
+        infomationView.set(delegate: self, dataSource: self.infomationDatasource)
+        infomationView.reloadTableView()
     }
     
-    func replaceFeatureViewHeight() {
-        NSLayoutConstraint.deactivate(featureViewHeightConstraint)
-        
-        featureViewHeightConstraint = [featureView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.3)]
-        NSLayoutConstraint.activate(featureViewHeightConstraint)
+    func setDatasourceWhen(receive screenshots: [UIImage]) {
+        screenshotDatasource = CollectionViewDatasource(screenshots, reuseIdentifier: ScreenshotCell.reuseIdentifier) { (image: UIImage, cell: ScreenshotCell) in
+            cell.set(image: image)
+        }
+        screenView.calculateItemSize()
+        screenView.set(delegate: self, dataSource: screenshotDatasource)
+        screenView.reloadCollectionView()
     }
 }
