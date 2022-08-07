@@ -45,6 +45,7 @@ final class MainViewController: UIViewController {
     }()
     
     private var contentViewHeightConstraint = [NSLayoutConstraint]()
+    private var lastContentOffset: CGFloat = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,6 +53,8 @@ final class MainViewController: UIViewController {
         configureLayouts()
         configureBinding()
         mainViewModel.enquireMainPageData()
+        self.navigationController?.navigationBar.backgroundColor = .white
+        self.scrollView.delegate = self
     }
 }
 
@@ -70,6 +73,17 @@ extension MainViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 50
+    }
+}
+
+extension MainViewController: UIScrollViewDelegate {
+
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView.contentOffset.y > 0 {
+            self.navigationController?.navigationBar.isHidden = false
+        } else {
+            self.navigationController?.navigationBar.isHidden = true
+        }
     }
 }
 
@@ -153,6 +167,8 @@ private extension MainViewController {
             .observe(on: ConcurrentMainScheduler.instance)
             .bind { [weak self] entity in
                 guard let self = self else { return }
+                self.mainViewModel.enquireNaviTitleImage(with: entity.naviTitle.navigationTitleImageURL)
+                
                 self.titleView.set(with: entity.mainTitle)
                 self.mainViewModel.enquireMainTitleImage(with: entity.mainTitle.appIconImageURL)
                 
@@ -172,6 +188,17 @@ private extension MainViewController {
                 self.descriptionView.set(with: entity.description)
                 
                 self.mainViewModel.enquireScreenShotImages(with: entity.screenshot)
+            }
+            .disposed(by: disposeBag)
+        
+        output.naviImage
+            .observe(on: ConcurrentMainScheduler.instance)
+            .bind { [weak self] image in
+                guard let self = self else { return }
+                let imageView = UIImageView(image: image)
+                imageView.contentMode = .scaleAspectFit
+                
+                self.navigationItem.titleView = imageView
             }
             .disposed(by: disposeBag)
         

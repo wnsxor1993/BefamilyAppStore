@@ -12,8 +12,9 @@ final class ViewDefaultMainPageUsecase: ViewMainPageUsecase {
     
     private var mainRepository: ViewMainPageRepository
     let mainPageEntitySubject = PublishSubject<MainPageEntity>()
-    let imageSubject = PublishSubject<UIImage>()
-    let imagesArraySubject = PublishSubject<[UIImage]>()
+    let naviTitleImageSubject = PublishSubject<UIImage>()
+    let mainImageSubject = PublishSubject<UIImage>()
+    let screenshotsSubject = PublishSubject<[UIImage]>()
     
     let disposeBag = DisposeBag()
     
@@ -42,13 +43,24 @@ final class ViewDefaultMainPageUsecase: ViewMainPageUsecase {
             .disposed(by: disposeBag)
     }
     
+    func executeNaviTitleImage(with url: URL?) {
+        mainRepository.searchImage(with: url)
+            .subscribe { [weak self] image in
+                self?.naviTitleImageSubject.onNext(image)
+            
+            } onError: { [weak self] _ in
+                self?.naviTitleImageSubject.onError(DataError.entityConvertingError)
+            }
+            .disposed(by: disposeBag)
+    }
+    
     func executeMainTitleImage(with url: URL?) {
         mainRepository.searchImage(with: url)
             .subscribe { [weak self] image in
-                self?.imageSubject.onNext(image)
+                self?.mainImageSubject.onNext(image)
             
             } onError: { [weak self] _ in
-                self?.imageSubject.onError(DataError.entityConvertingError)
+                self?.mainImageSubject.onError(DataError.entityConvertingError)
             }
             .disposed(by: disposeBag)
     }
@@ -56,10 +68,10 @@ final class ViewDefaultMainPageUsecase: ViewMainPageUsecase {
     func executeScreenshots(with entities: [ScreenshotEntity]) {
         mainRepository.searchImagesArray(with: entities)
             .subscribe { [weak self] images in
-                self?.imagesArraySubject.onNext(images)
+                self?.screenshotsSubject.onNext(images)
                 
             } onError: { [weak self] _ in
-                self?.imagesArraySubject.onError(DataError.entityConvertingError)
+                self?.screenshotsSubject.onError(DataError.entityConvertingError)
             }
             .disposed(by: disposeBag)
     }

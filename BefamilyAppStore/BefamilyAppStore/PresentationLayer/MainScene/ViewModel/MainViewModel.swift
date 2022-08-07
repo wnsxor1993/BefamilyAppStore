@@ -17,6 +17,7 @@ final class MainViewModel {
     
     struct Output {
         let mainPageData = PublishRelay<MainPageEntity>()
+        let naviImage = PublishRelay<UIImage>()
         let mainImage = PublishRelay<UIImage>()
         let screenshots = PublishRelay<[UIImage]>()
     }
@@ -47,13 +48,19 @@ final class MainViewModel {
             }
             .disposed(by: disposeBag)
         
-        mainUsecase.imageSubject
+        mainUsecase.naviTitleImageSubject
+            .subscribe { image in
+                output.naviImage.accept(image)
+            }
+            .disposed(by: disposeBag)
+        
+        mainUsecase.mainImageSubject
             .subscribe { image in
                 output.mainImage.accept(image)
             }
             .disposed(by: disposeBag)
         
-        mainUsecase.imagesArraySubject
+        mainUsecase.screenshotsSubject
             .subscribe { images in
                 output.screenshots.accept(images)
                 
@@ -65,6 +72,10 @@ final class MainViewModel {
     
     func enquireMainPageData() {
         mainUsecase.executeMainData()
+    }
+    
+    func enquireNaviTitleImage(with url: URL?) {
+        mainUsecase.executeNaviTitleImage(with: url)
     }
     
     func enquireMainTitleImage(with url: URL?) {
