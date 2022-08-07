@@ -7,7 +7,6 @@
 
 import Foundation
 
-struct FourthSectionEntity {
+struct ScreenshotEntity {
     let validURL: URL
-//    let screenshots: Data
 }

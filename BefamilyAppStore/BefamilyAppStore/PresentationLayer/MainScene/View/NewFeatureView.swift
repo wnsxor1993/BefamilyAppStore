@@ -70,7 +70,7 @@ final class NewFeatureView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func set(with entity: ThirdSectionEntity) {
+    func set(with entity: NewFeatureEntity) {
         versionLabel.text = "버전 \(entity.version)"
         dateLabel.text = entity.updatedDate
         descriptionLabel.text = entity.releaseNotes

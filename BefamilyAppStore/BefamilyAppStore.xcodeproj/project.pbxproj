@@ -37,9 +37,9 @@
 		D27E66C1289E696D00C2FDB4 /* NavigationTitleEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27E66C0289E696D00C2FDB4 /* NavigationTitleEntity.swift */; };
 		D27E66C3289E69CC00C2FDB4 /* MainTitleEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27E66C2289E69CC00C2FDB4 /* MainTitleEntity.swift */; };
 		D27E66C5289E6A5300C2FDB4 /* SubDescriptionEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27E66C4289E6A5300C2FDB4 /* SubDescriptionEntity.swift */; };
-		D27E66C7289E6B1E00C2FDB4 /* ThirdSectionEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27E66C6289E6B1E00C2FDB4 /* ThirdSectionEntity.swift */; };
-		D27E66C9289E6B3800C2FDB4 /* FourthSectionEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27E66C8289E6B3800C2FDB4 /* FourthSectionEntity.swift */; };
-		D27E66CB289E6B6900C2FDB4 /* FifthSectionEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27E66CA289E6B6900C2FDB4 /* FifthSectionEntity.swift */; };
+		D27E66C7289E6B1E00C2FDB4 /* NewFeatureEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27E66C6289E6B1E00C2FDB4 /* NewFeatureEntity.swift */; };
+		D27E66C9289E6B3800C2FDB4 /* ScreenshotEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27E66C8289E6B3800C2FDB4 /* ScreenshotEntity.swift */; };
+		D27E66CB289E6B6900C2FDB4 /* DescriptionEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27E66CA289E6B6900C2FDB4 /* DescriptionEntity.swift */; };
 		D27E66CD289E6BB500C2FDB4 /* SixthSectionEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27E66CC289E6BB500C2FDB4 /* SixthSectionEntity.swift */; };
 		D27E66D2289E8D8800C2FDB4 /* ViewMainPageUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27E66D1289E8D8800C2FDB4 /* ViewMainPageUsecase.swift */; };
 		D27E66D5289E8ECF00C2FDB4 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27E66D4289E8ECF00C2FDB4 /* MainViewModel.swift */; };
@@ -85,9 +85,9 @@
 		D27E66C0289E696D00C2FDB4 /* NavigationTitleEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationTitleEntity.swift; sourceTree = "<group>"; };
 		D27E66C2289E69CC00C2FDB4 /* MainTitleEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTitleEntity.swift; sourceTree = "<group>"; };
 		D27E66C4289E6A5300C2FDB4 /* SubDescriptionEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubDescriptionEntity.swift; sourceTree = "<group>"; };
-		D27E66C6289E6B1E00C2FDB4 /* ThirdSectionEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdSectionEntity.swift; sourceTree = "<group>"; };
-		D27E66C8289E6B3800C2FDB4 /* FourthSectionEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FourthSectionEntity.swift; sourceTree = "<group>"; };
-		D27E66CA289E6B6900C2FDB4 /* FifthSectionEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FifthSectionEntity.swift; sourceTree = "<group>"; };
+		D27E66C6289E6B1E00C2FDB4 /* NewFeatureEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewFeatureEntity.swift; sourceTree = "<group>"; };
+		D27E66C8289E6B3800C2FDB4 /* ScreenshotEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotEntity.swift; sourceTree = "<group>"; };
+		D27E66CA289E6B6900C2FDB4 /* DescriptionEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionEntity.swift; sourceTree = "<group>"; };
 		D27E66CC289E6BB500C2FDB4 /* SixthSectionEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SixthSectionEntity.swift; sourceTree = "<group>"; };
 		D27E66D1289E8D8800C2FDB4 /* ViewMainPageUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewMainPageUsecase.swift; sourceTree = "<group>"; };
 		D27E66D4289E8ECF00C2FDB4 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
@@ -326,9 +326,9 @@
 				D27E66C0289E696D00C2FDB4 /* NavigationTitleEntity.swift */,
 				D27E66C2289E69CC00C2FDB4 /* MainTitleEntity.swift */,
 				D27E66C4289E6A5300C2FDB4 /* SubDescriptionEntity.swift */,
-				D27E66C6289E6B1E00C2FDB4 /* ThirdSectionEntity.swift */,
-				D27E66C8289E6B3800C2FDB4 /* FourthSectionEntity.swift */,
-				D27E66CA289E6B6900C2FDB4 /* FifthSectionEntity.swift */,
+				D27E66C6289E6B1E00C2FDB4 /* NewFeatureEntity.swift */,
+				D27E66C8289E6B3800C2FDB4 /* ScreenshotEntity.swift */,
+				D27E66CA289E6B6900C2FDB4 /* DescriptionEntity.swift */,
 				D27E66CC289E6BB500C2FDB4 /* SixthSectionEntity.swift */,
 			);
 			path = Subordination;
@@ -494,10 +494,10 @@
 				D27E66DC289EB65300C2FDB4 /* UIStackView +.swift in Sources */,
 				D27E66C1289E696D00C2FDB4 /* NavigationTitleEntity.swift in Sources */,
 				D2772A21289FA61600CDC77F /* ScreenshotView.swift in Sources */,
-				D27E66C7289E6B1E00C2FDB4 /* ThirdSectionEntity.swift in Sources */,
+				D27E66C7289E6B1E00C2FDB4 /* NewFeatureEntity.swift in Sources */,
 				D27E667B289E351300C2FDB4 /* AppDelegate.swift in Sources */,
 				D27E66E1289EE11B00C2FDB4 /* CollectionViewDatasource.swift in Sources */,
-				D27E66C9289E6B3800C2FDB4 /* FourthSectionEntity.swift in Sources */,
+				D27E66C9289E6B3800C2FDB4 /* ScreenshotEntity.swift in Sources */,
 				D2772A1B289F8EEC00CDC77F /* ScreenshotCell.swift in Sources */,
 				D27E66BE289E5DAD00C2FDB4 /* ViewDefaultMainPageUsecase.swift in Sources */,
 				D27E66B7289E54E200C2FDB4 /* ViewMainPageRepository.swift in Sources */,
@@ -517,7 +517,7 @@
 				D27E6695289E3DC800C2FDB4 /* EndPoint.swift in Sources */,
 				D27E66B0289E521800C2FDB4 /* DataError.swift in Sources */,
 				D27E669F289E40CB00C2FDB4 /* NetworkService.swift in Sources */,
-				D27E66CB289E6B6900C2FDB4 /* FifthSectionEntity.swift in Sources */,
+				D27E66CB289E6B6900C2FDB4 /* DescriptionEntity.swift in Sources */,
 				D2772A17289F71B300CDC77F /* NewFeatureView.swift in Sources */,
 				D27E66DA289EA3B700C2FDB4 /* UIView +.swift in Sources */,
 				D27E66B4289E535500C2FDB4 /* JSONConverter.swift in Sources */,

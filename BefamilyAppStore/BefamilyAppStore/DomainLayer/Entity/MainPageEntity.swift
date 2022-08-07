@@ -11,8 +11,8 @@ struct MainPageEntity {
     let naviTitle: NavigationTitleEntity
     let mainTitle: MainTitleEntity
     let secondSection: [SubDescriptionEntity]
-    let thirdSection: ThirdSectionEntity
-    let fourthSection: [FourthSectionEntity]
-    let fifthSection: FifthSectionEntity
+    let thirdSection: NewFeatureEntity
+    let fourthSection: [ScreenshotEntity]
+    let fifthSection: DescriptionEntity
     let SixthSection: SixthSectionEntity
 }

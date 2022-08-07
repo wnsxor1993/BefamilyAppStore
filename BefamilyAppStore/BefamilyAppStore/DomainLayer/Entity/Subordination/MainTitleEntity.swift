@@ -8,7 +8,7 @@
 import Foundation
 
 struct MainTitleEntity {
-    let appIconImage: Data
+    let appIconImageURL: URL?
     let appName: String
     let downloadURL: URL?
 }

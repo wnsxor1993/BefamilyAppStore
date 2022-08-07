@@ -78,7 +78,7 @@ final class DescriptionView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func set(with entity: FifthSectionEntity) {
+    func set(with entity: DescriptionEntity) {
         descriptionLabel.text = entity.description
         programmerName.text = entity.programmerName
     }
@@ -92,9 +92,9 @@ private extension DescriptionView {
         
         NSLayoutConstraint.activate([
             descriptionLabel.topAnchor.constraint(equalTo: topAnchor, constant: 10),
+            descriptionLabel.bottomAnchor.constraint(equalTo: boxView.topAnchor, constant: -10),
             descriptionLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
             descriptionLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
-            descriptionLabel.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.6)
         ])
         
         NSLayoutConstraint.activate([
@@ -105,10 +105,10 @@ private extension DescriptionView {
         ])
         
         NSLayoutConstraint.activate([
-            boxView.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 10),
             boxView.bottomAnchor.constraint(equalTo: bottomAnchor),
             boxView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
-            boxView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10)
+            boxView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
+            boxView.heightAnchor.constraint(equalToConstant: 50)
         ])
         
         NSLayoutConstraint.activate([

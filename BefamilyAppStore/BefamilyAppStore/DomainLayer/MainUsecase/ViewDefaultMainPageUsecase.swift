@@ -45,8 +45,8 @@ final class ViewDefaultMainPageUsecase: ViewMainPageUsecase {
             .disposed(by: disposeBag)
     }
     
-    func executeScreenshots(with entities: [FourthSectionEntity]) {
-        mainRepository.searchImage(with: entities)
+    func executeScreenshots(with entities: [ScreenshotEntity]) {
+        mainRepository.searchImages(with: entities)
             .subscribe { [weak self] images in
                 self?.screenshotImagesSubject.onNext(images)
                 
@@ -78,7 +78,7 @@ private extension ViewDefaultMainPageUsecase {
     func alterToFirstSectionEntity(from dto: MainPageDTO) -> MainTitleEntity {
         let appIconImageURL = changeToURL(with: dto.artworkUrl512)
         
-        return MainTitleEntity(appIconImage: changeToData(with: appIconImageURL), appName: dto.trackName, downloadURL: changeToURL(with: dto.trackViewURL))
+        return MainTitleEntity(appIconImageURL: appIconImageURL, appName: dto.trackName, downloadURL: changeToURL(with: dto.trackViewURL))
     }
     
     func alterToSecondSectionEntity(from dto: MainPageDTO) -> [SubDescriptionEntity] {
@@ -121,34 +121,26 @@ private extension ViewDefaultMainPageUsecase {
         return entities
     }
     
-    func alterToThirdSectionEntity(from dto: MainPageDTO) -> ThirdSectionEntity {
+    func alterToThirdSectionEntity(from dto: MainPageDTO) -> NewFeatureEntity {
         
-        return ThirdSectionEntity(version: dto.version, releaseNotes: dto.releaseNotes, updatedDate: calculateToday(from: dto.currentVersionReleaseDate))
+        return NewFeatureEntity(version: dto.version, releaseNotes: dto.releaseNotes, updatedDate: calculateToday(from: dto.currentVersionReleaseDate))
     }
     
-    func alterToFourthSectionEntity(from dto: MainPageDTO) -> [FourthSectionEntity] {
-        var entities = [FourthSectionEntity]()
+    func alterToFourthSectionEntity(from dto: MainPageDTO) -> [ScreenshotEntity] {
+        var entities = [ScreenshotEntity]()
         
         dto.screenshotUrls.forEach {
             guard let url = changeToURL(with: $0) else { return }
-            let temp = FourthSectionEntity(validURL: url)
+            let temp = ScreenshotEntity(validURL: url)
             entities.append(temp)
-//            do {
-//                let data = try Data(contentsOf: url)
-//                let temp = FourthSectionEntity(validURL: url, screenshots: data)
-//                entities.append(temp)
-//
-//            } catch {
-//                return
-//            }
         }
         
         return entities
     }
     
-    func alterToFifthSectionEntity(from dto: MainPageDTO) -> FifthSectionEntity {
+    func alterToFifthSectionEntity(from dto: MainPageDTO) -> DescriptionEntity {
         
-        return FifthSectionEntity(description: dto.description, programmerName: dto.artistName, programmerViewURL: changeToURL(with: dto.artistViewURL))
+        return DescriptionEntity(description: dto.description, programmerName: dto.artistName, programmerViewURL: changeToURL(with: dto.artistViewURL))
     }
     
     func alterToSixthSectionEntity(from dto: MainPageDTO) -> SixthSectionEntity {

@@ -45,7 +45,7 @@ final class ViewDefaultMainPageRepository: ViewMainPageRepository {
         }
     }
     
-    func searchImage(with entities: [FourthSectionEntity]) -> Observable<[UIImage]> {
+    func searchImages(with entities: [ScreenshotEntity]) -> Observable<[UIImage]> {
         
         return Observable.create { observer -> Disposable in
             var tempImages = [UIImage]()
@@ -57,11 +57,15 @@ final class ViewDefaultMainPageRepository: ViewMainPageRepository {
                 } else {
                     do {
                         let data = try Data(contentsOf: $0.validURL)
-                        guard let image = UIImage(data: data) else { return }
+                        guard let image = UIImage(data: data) else {
+                            observer.onError(DataError.decodingError)
+                            return
+                        }
                         ImageCacheService.saveData(image: image, url: $0.validURL)
                         tempImages.append(image)
                     
                     } catch {
+                        observer.onError(DataError.noData)
                         return
                     }
                 }

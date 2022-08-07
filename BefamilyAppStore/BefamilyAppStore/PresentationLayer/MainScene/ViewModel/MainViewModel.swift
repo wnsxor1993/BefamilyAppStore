@@ -61,7 +61,7 @@ final class MainViewModel {
         mainUsecase.executeMainData()
     }
     
-    func enquireScreenShotImages(with entities: [FourthSectionEntity]) {
+    func enquireScreenShotImages(with entities: [ScreenshotEntity]) {
         mainUsecase.executeScreenshots(with: entities)
     }
 }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ThirdSectionEntity {
+struct NewFeatureEntity {
     let version: String
     let releaseNotes: String
     

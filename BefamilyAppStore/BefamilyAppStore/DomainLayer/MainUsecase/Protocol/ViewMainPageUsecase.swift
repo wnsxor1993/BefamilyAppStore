@@ -14,5 +14,5 @@ protocol ViewMainPageUsecase {
     var screenshotImagesSubject: PublishSubject<[UIImage]> { get }
     
     func executeMainData()
-    func executeScreenshots(with entities: [FourthSectionEntity])
+    func executeScreenshots(with entities: [ScreenshotEntity])
 }
