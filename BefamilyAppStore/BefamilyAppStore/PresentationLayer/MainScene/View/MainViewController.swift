@@ -20,6 +20,7 @@ final class MainViewController: UIViewController {
     
     private var scrollView = UIScrollView()
     private var contentView = UIView()
+    private var navigationImageView = UIImageView()
     private var titleView = MainTitleView()
     private var featureView = NewFeatureView()
     private var screenView = ScreenshotView()
@@ -32,8 +33,6 @@ final class MainViewController: UIViewController {
         layout.scrollDirection = .horizontal
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.layer.borderWidth = 0.5
-        collectionView.layer.borderColor = UIColor.gray.cgColor
         collectionView.isScrollEnabled = true
         collectionView.backgroundColor = .white
         collectionView.showsHorizontalScrollIndicator = false
@@ -45,13 +44,18 @@ final class MainViewController: UIViewController {
     }()
     
     private var contentViewHeightConstraint = [NSLayoutConstraint]()
-    private var lastContentOffset: CGFloat = 0
+    private var featureViewHeightConstraint = [NSLayoutConstraint]()
+    
+    private var contentViewHeight: CGFloat {
+        titleView.frame.height + subDescriptionCollectionView.frame.height + featureView.frame.height + screenView.frame.height + descriptionView.frame.height + infomationView.frame.height
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         configureLayouts()
         configureBinding()
+        configureInnerAction()
         mainViewModel.enquireMainPageData()
         self.navigationController?.navigationBar.backgroundColor = .white
         self.scrollView.delegate = self
@@ -80,9 +84,9 @@ extension MainViewController: UIScrollViewDelegate {
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView.contentOffset.y > 0 {
-            self.navigationController?.navigationBar.isHidden = false
+            self.navigationItem.titleView = navigationImageView
         } else {
-            self.navigationController?.navigationBar.isHidden = true
+            self.navigationItem.titleView = nil
         }
     }
 }
@@ -134,9 +138,10 @@ private extension MainViewController {
         NSLayoutConstraint.activate([
             featureView.topAnchor.constraint(equalTo: subDescriptionCollectionView.bottomAnchor),
             featureView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            featureView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            featureView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.2)
+            featureView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
         ])
+        featureViewHeightConstraint = [featureView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.2)]
+        NSLayoutConstraint.activate(featureViewHeightConstraint)
         
         NSLayoutConstraint.activate([
             screenView.topAnchor.constraint(equalTo: featureView.bottomAnchor),
@@ -161,7 +166,7 @@ private extension MainViewController {
     }
     
     func configureBinding() {
-        let output = mainViewModel.transform(disposeBag: disposeBag)
+        let output = mainViewModel.transform(input: MainViewModel.Input(titleDownButtonDidTapEvent: titleView.connectAction()), disposeBag: disposeBag)
         
         output.mainPageData
             .observe(on: ConcurrentMainScheduler.instance)
@@ -195,10 +200,8 @@ private extension MainViewController {
             .observe(on: ConcurrentMainScheduler.instance)
             .bind { [weak self] image in
                 guard let self = self else { return }
-                let imageView = UIImageView(image: image)
-                imageView.contentMode = .scaleAspectFit
-                
-                self.navigationItem.titleView = imageView
+                self.navigationImageView.image = image
+                self.navigationImageView.contentMode = .scaleAspectFit
             }
             .disposed(by: disposeBag)
         
@@ -221,7 +224,33 @@ private extension MainViewController {
                 self.screenView.set(delegate: self, dataSource: self.screenshotDatasource)
                 self.screenView.reloadCollectionView()
                 
-                self.setContentViewHeight()
+                UIView.animate(withDuration: 0) {
+                    self.setContentViewHeight()
+                    self.view.layoutIfNeeded()
+                }
+            }
+            .disposed(by: disposeBag)
+        
+        output.downloadURL
+            .observe(on: ConcurrentMainScheduler.instance)
+            .bind { url in
+                print(url)
+                UIApplication.shared.open(url)
+            }
+            .disposed(by: disposeBag)
+    }
+    
+    func configureInnerAction() {
+        featureView.connectAction()
+            .observe(on: ConcurrentMainScheduler.instance)
+            .bind { [weak self] _ in
+                UIView.animate(withDuration: 0.5) {
+                    self?.replaceFeatureViewHeight()
+                    self?.view.layoutIfNeeded()
+                }
+                
+                self?.featureView.deleteButton()
+                self?.setContentViewHeight()
             }
             .disposed(by: disposeBag)
     }
@@ -229,13 +258,16 @@ private extension MainViewController {
     func setContentViewHeight() {
         NSLayoutConstraint.deactivate(contentViewHeightConstraint)
 
-        let contentViewHeight = titleView.frame.height + subDescriptionCollectionView.frame.height + featureView.frame.height + screenView.frame.height + descriptionView.frame.height + infomationView.frame.height
-
         contentViewHeightConstraint = [contentView.heightAnchor.constraint(equalToConstant: contentViewHeight)]
         NSLayoutConstraint.activate(contentViewHeightConstraint)
         
-        featureView.layer.addBorder([.bottom], color: .gray, width: 0.5)
-        screenView.layer.addBorder([.bottom], color: .gray, width: 0.5)
-        descriptionView.layer.addBorder([.bottom], color: .gray, width: 0.5)
+        titleView.layer.addBorder([.bottom], color: .gray, width: 0.5)
+    }
+    
+    func replaceFeatureViewHeight() {
+        NSLayoutConstraint.deactivate(featureViewHeightConstraint)
+        
+        featureViewHeightConstraint = [featureView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.3)]
+        NSLayoutConstraint.activate(featureViewHeightConstraint)
     }
 }

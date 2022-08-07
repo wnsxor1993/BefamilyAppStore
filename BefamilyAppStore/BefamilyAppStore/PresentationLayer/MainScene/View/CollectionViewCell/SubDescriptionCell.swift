@@ -59,6 +59,7 @@ final class SubDescriptionCell: UICollectionViewCell {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+        contentView.backgroundColor = .white
     }
 
     @available (*, unavailable)

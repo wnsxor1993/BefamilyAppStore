@@ -15,11 +15,17 @@ final class MainViewModel {
     
     private var mainUsecase: ViewMainPageUsecase
     
+    struct Input {
+        let titleDownButtonDidTapEvent: Observable<Void>
+    }
+    
     struct Output {
         let mainPageData = PublishRelay<MainPageEntity>()
         let naviImage = PublishRelay<UIImage>()
         let mainImage = PublishRelay<UIImage>()
         let screenshots = PublishRelay<[UIImage]>()
+        
+        let downloadURL = PublishRelay<URL>()
     }
     
     init(main: ViewMainPageUsecase) {
@@ -30,8 +36,15 @@ final class MainViewModel {
         self.init(main: ViewDefaultMainPageUsecase())
     }
     
-    func transform(disposeBag: DisposeBag) -> Output {
+    func transform(input: Input, disposeBag: DisposeBag) -> Output {
         let output = Output()
+        
+        input.titleDownButtonDidTapEvent
+            .subscribe { [weak self] _ in
+                guard let validURL = self?.mainPageEntity?.mainTitle.downloadURL else { return }
+                output.downloadURL.accept(validURL)
+            }
+            .disposed(by: disposeBag)
         
         mainUsecase.mainPageEntitySubject
             .subscribe { [weak self] pageEntity in

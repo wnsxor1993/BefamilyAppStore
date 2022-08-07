@@ -24,6 +24,7 @@ final class ScreenshotCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureLayouts()
+        contentView.backgroundColor = .white
     }
 
     @available (*, unavailable)

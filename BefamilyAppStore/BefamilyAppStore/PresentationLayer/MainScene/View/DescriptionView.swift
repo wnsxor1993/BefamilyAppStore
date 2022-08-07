@@ -71,6 +71,8 @@ final class DescriptionView: UIView {
         super.init(frame: frame)
         backgroundColor = .white
         configureLayouts()
+        layer.borderWidth = 0.5
+        layer.borderColor = UIColor.gray.cgColor
     }
 
     @available (*, unavailable)
@@ -99,8 +101,8 @@ private extension DescriptionView {
         
         NSLayoutConstraint.activate([
             moreButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
-            moreButton.bottomAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: -18),
-            moreButton.heightAnchor.constraint(equalToConstant: 20),
+            moreButton.bottomAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: -13),
+            moreButton.heightAnchor.constraint(equalToConstant: 25),
             moreButton.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.18)
         ])
         

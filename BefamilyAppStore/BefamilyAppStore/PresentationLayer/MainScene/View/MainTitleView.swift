@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 final class MainTitleView: UIView {
     
@@ -80,6 +82,10 @@ final class MainTitleView: UIView {
     
     func set(with image: UIImage) {
         titleImageView.image = image
+    }
+    
+    func connectAction() -> Observable<Void> {
+        return downButton.rx.tap.asObservable()
     }
 }
 

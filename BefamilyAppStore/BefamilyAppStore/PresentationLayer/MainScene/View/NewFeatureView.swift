@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 final class NewFeatureView: UIView {
 
@@ -63,6 +65,8 @@ final class NewFeatureView: UIView {
         super.init(frame: frame)
         backgroundColor = .white
         configureLayouts()
+        layer.borderWidth = 0.5
+        layer.borderColor = UIColor.gray.cgColor
     }
 
     @available (*, unavailable)
@@ -74,6 +78,15 @@ final class NewFeatureView: UIView {
         versionLabel.text = "버전 \(entity.version)"
         dateLabel.text = entity.updatedDate
         descriptionLabel.text = entity.releaseNotes
+    }
+    
+    func connectAction() -> Observable<Void> {
+        return moreButton.rx.tap.asObservable()
+    }
+    
+    func deleteButton() {
+        descriptionLabel.numberOfLines = 0
+        moreButton.removeFromSuperview()
     }
 }
 
@@ -109,8 +122,8 @@ private extension NewFeatureView {
         
         NSLayoutConstraint.activate([
             moreButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
-            moreButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -21),
-            moreButton.heightAnchor.constraint(equalToConstant: 20),
+            moreButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16),
+            moreButton.heightAnchor.constraint(equalToConstant: 25),
             moreButton.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.18)
         ])
     }
