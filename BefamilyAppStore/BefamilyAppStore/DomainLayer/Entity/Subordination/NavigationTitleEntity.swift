@@ -8,6 +8,6 @@
 import Foundation
 
 struct NavigationTitleEntity {
-    let navigationTitleImage: Data
+    let navigationTitleImageURL: URL?
     let downloadURL: URL?
 }

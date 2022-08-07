@@ -14,5 +14,5 @@ struct MainPageEntity {
     let thirdSection: NewFeatureEntity
     let fourthSection: [ScreenshotEntity]
     let fifthSection: DescriptionEntity
-    let SixthSection: SixthSectionEntity
+    let SixthSection: [SixthSectionEntity]
 }

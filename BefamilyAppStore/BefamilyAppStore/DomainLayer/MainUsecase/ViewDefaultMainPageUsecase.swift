@@ -72,7 +72,7 @@ private extension ViewDefaultMainPageUsecase {
     func alterToNaviEntity(from dto: MainPageDTO) -> NavigationTitleEntity {
         let naviTitleImageURL = changeToURL(with: dto.artworkUrl60)
         
-        return NavigationTitleEntity(navigationTitleImage: changeToData(with: naviTitleImageURL), downloadURL: changeToURL(with: dto.trackViewURL))
+        return NavigationTitleEntity(navigationTitleImageURL: naviTitleImageURL, downloadURL: changeToURL(with: dto.trackViewURL))
     }
     
     func alterToFirstSectionEntity(from dto: MainPageDTO) -> MainTitleEntity {
@@ -91,30 +91,27 @@ private extension ViewDefaultMainPageUsecase {
             category = dto.languageCodesISO2A[0]
         }
         
-        for num in 0 ... 4 {
-            switch num {
-            case 0 :
-                let temp = SubDescriptionEntity(index: num, title: "\(dto.userRatingCountForCurrentVersion)개의 평가", content: "\(round(dto.averageUserRating * 10) / 10)", extra: "★★★★☆")
+        SubDescriptionSection.allCases.forEach {
+            switch $0 {
+            case .firstItem:
+                let temp = SubDescriptionEntity(index: $0.rawValue, title: "\(dto.userRatingCountForCurrentVersion)개의 평가", content: "\(round(dto.averageUserRating * 10) / 10)", extra: "★★★★☆")
                 entities.append(temp)
                 
-            case 1 :
-                let temp = SubDescriptionEntity(index: num, title: "연령", content: dto.trackContentRating, extra: "세")
+            case .secondItem:
+                let temp = SubDescriptionEntity(index: $0.rawValue, title: "연령", content: dto.trackContentRating, extra: "세")
                 entities.append(temp)
                 
-            case 2 :
-                let temp = SubDescriptionEntity(index: num, title: "카테고리", content: "bubble.left.and.bubble.right.fill", extra: dto.genres[0])
+            case .thirdItem:
+                let temp = SubDescriptionEntity(index: $0.rawValue, title: "카테고리", content: "bubble.left.and.bubble.right.fill", extra: dto.genres[0])
                 entities.append(temp)
                 
-            case 3 :
-                let temp = SubDescriptionEntity(index: num, title: "개발자", content: "person.crop.circle", extra: dto.artistName)
+            case .fourthItem:
+                let temp = SubDescriptionEntity(index: $0.rawValue, title: "개발자", content: "person.crop.circle", extra: dto.artistName)
                 entities.append(temp)
                 
-            case 4 :
-                let temp = SubDescriptionEntity(index: num, title: "언어", content: category, extra: "+ \(dto.languageCodesISO2A.count - 1)개의 언어")
+            case .fifthItem:
+                let temp = SubDescriptionEntity(index: $0.rawValue, title: "언어", content: category, extra: "+ \(dto.languageCodesISO2A.count - 1)개의 언어")
                 entities.append(temp)
-                
-            default:
-                break
             }
         }
         
@@ -143,9 +140,42 @@ private extension ViewDefaultMainPageUsecase {
         return DescriptionEntity(description: dto.description, programmerName: dto.artistName, programmerViewURL: changeToURL(with: dto.artistViewURL))
     }
     
-    func alterToSixthSectionEntity(from dto: MainPageDTO) -> SixthSectionEntity {
+    func alterToSixthSectionEntity(from dto: MainPageDTO) -> [SixthSectionEntity] {
+        var entities = [SixthSectionEntity]()
         
-        return SixthSectionEntity(sellerName: dto.sellerName, fileSizeBytes: calculateMegaByte(from: dto.fileSizeBytes), categories: dto.genres, minimumOSVersion: dto.minimumOSVersion, languages: dto.languageCodesISO2A, ageRating: dto.trackContentRating, releaseDate: calculateYear(from: dto.releaseDate))
+        InfomationSection.allCases.forEach {
+            switch $0 {
+            case .firstItem:
+                let temp = SixthSectionEntity(title: "제공자", content: dto.sellerName)
+                entities.append(temp)
+                
+            case .secondItem:
+                let temp = SixthSectionEntity(title: "크기", content: calculateMegaByte(from: dto.fileSizeBytes))
+                entities.append(temp)
+                
+            case .thirdItem:
+                let temp = SixthSectionEntity(title: "카테고리", content: dto.genres[0])
+                entities.append(temp)
+                
+            case .fourthItem:
+                let temp = SixthSectionEntity(title: "호환성", content: dto.minimumOSVersion)
+                entities.append(temp)
+                
+            case .fifthItem:
+                let temp = SixthSectionEntity(title: "언어", content: convertToString(from: dto.languageCodesISO2A))
+                entities.append(temp)
+                
+            case .sixthItem:
+                let temp = SixthSectionEntity(title: "연령 등급", content: dto.trackContentRating)
+                entities.append(temp)
+                
+            case .seventhItem:
+                let temp = SixthSectionEntity(title: "저작권", content: "© \(calculateYear(from: dto.releaseDate)) \(dto.sellerName)")
+                entities.append(temp)
+            }
+        }
+        
+        return entities
     }
 }
 
@@ -155,18 +185,6 @@ private extension ViewDefaultMainPageUsecase {
     
     func changeToURL(with string: String) -> URL? {
         return URL(string: string)
-    }
-    
-    func changeToData(with url: URL?) -> Data {
-        guard let url = url else { return Data() }
-        
-        do {
-            let data = try Data(contentsOf: url)
-            return data
-            
-        } catch {
-            return Data()
-        }
     }
     
     func calculateToday(from date: String) -> String {
@@ -201,5 +219,19 @@ private extension ViewDefaultMainPageUsecase {
         let value = round((realByte / 1024000) * 10) / 10
         
         return "\(value)"
+    }
+    
+    func convertToString(from iso: [String]) -> String {
+        let isoDictionary = ["KO": "한국어", "EN": "영어"]
+        var tempStrings = [String]()
+        
+        iso.forEach {
+            guard let value = isoDictionary[$0] else { return }
+            tempStrings.append(value)
+        }
+        
+        return tempStrings.reduce("") { (result: String, next: String) -> String in
+            return "\(result), \(next)"
+        }
     }
 }

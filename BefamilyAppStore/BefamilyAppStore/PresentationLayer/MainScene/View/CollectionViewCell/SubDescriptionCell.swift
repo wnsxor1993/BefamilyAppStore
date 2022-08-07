@@ -8,14 +8,6 @@
 import UIKit
 
 final class SubDescriptionCell: UICollectionViewCell {
-
-    enum ItemCase: Int {
-        case firstItem = 0
-        case secondItem
-        case thirdItem
-        case fourthItem
-        case fifthItem
-    }
     
     static let reuseIdentifier = "SubDescriptionCell"
     
@@ -75,7 +67,7 @@ final class SubDescriptionCell: UICollectionViewCell {
     }
     
     func set(itemSection: Int, entity: SubDescriptionEntity) {
-        guard let validCase = ItemCase.init(rawValue: itemSection) else { return }
+        guard let validCase = SubDescriptionSection.init(rawValue: itemSection) else { return }
         configureLayouts(with: validCase)
         configureItem(with: validCase, entity: entity)
         
@@ -87,7 +79,7 @@ final class SubDescriptionCell: UICollectionViewCell {
 
 private extension SubDescriptionCell {
     
-    func configureLayouts(with validCase: ItemCase) {
+    func configureLayouts(with validCase: SubDescriptionSection) {
         contentView.addSubview(stackView)
         
         switch validCase {
@@ -106,7 +98,7 @@ private extension SubDescriptionCell {
         ])
     }
     
-    func configureItem(with validCase: ItemCase, entity: SubDescriptionEntity) {
+    func configureItem(with validCase: SubDescriptionSection, entity: SubDescriptionEntity) {
         switch validCase {
         case .firstItem, .secondItem, .fifthItem:
             titleLabel.text = entity.title

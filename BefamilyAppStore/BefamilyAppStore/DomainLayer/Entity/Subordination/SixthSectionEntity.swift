@@ -8,11 +8,6 @@
 import Foundation
 
 struct SixthSectionEntity {
-    let sellerName: String
-    let fileSizeBytes: String
-    let categories: [String]
-    let minimumOSVersion: String
-    let languages: [String]
-    let ageRating: String
-    let releaseDate: String
+    let title: String
+    let content: String
 }
