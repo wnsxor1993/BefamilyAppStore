@@ -68,7 +68,8 @@ private extension ViewDefaultMainPageUsecase {
         return MainTitleEntity(appIconImage: changeToData(with: appIconImageURL), appName: dto.trackName, downloadURL: changeToURL(with: dto.trackViewURL))
     }
     
-    func alterToSecondSectionEntity(from dto: MainPageDTO) -> SecondSectionEntity {
+    func alterToSecondSectionEntity(from dto: MainPageDTO) -> [SecondSectionEntity] {
+        var entities = [SecondSectionEntity]()
         var category = ""
         
         if let koIndex = dto.genres.firstIndex(of: "KO") {
@@ -77,7 +78,34 @@ private extension ViewDefaultMainPageUsecase {
             category = dto.genres[0]
         }
         
-        return SecondSectionEntity(ratingCount: "\(dto.userRatingCountForCurrentVersion)", averageRating: "\(round(dto.averageUserRating * 10) / 10)", trackContentRating: dto.trackContentRating, category: category, programmerName: dto.artistName, languageCodesISO2A: dto.languageCodesISO2A)
+        for num in 0 ... 4 {
+            switch num {
+            case 0 :
+                let temp = SecondSectionEntity(index: num, title: "\(dto.userRatingCountForCurrentVersion)개의 평가", content: "\(round(dto.averageUserRating * 10) / 10)", extra: "★★★★☆")
+                entities.append(temp)
+                
+            case 1 :
+                let temp = SecondSectionEntity(index: num, title: "연령", content: dto.trackContentRating, extra: "세")
+                entities.append(temp)
+                
+            case 2 :
+                let temp = SecondSectionEntity(index: num, title: "카테고리", content: "bubble.left.and.bubble.right.fill", extra: category)
+                entities.append(temp)
+                
+            case 3 :
+                let temp = SecondSectionEntity(index: num, title: "개발자", content: dto.artistName, extra: "person.crop.circle")
+                entities.append(temp)
+                
+            case 4 :
+                let temp = SecondSectionEntity(index: num, title: "언어", content: category, extra: "\(dto.genres.count - 1)개의 언어")
+                entities.append(temp)
+                
+            default:
+                break
+            }
+        }
+        
+        return entities
     }
     
     func alterToThirdSectionEntity(from dto: MainPageDTO) -> ThirdSectionEntity {
@@ -85,22 +113,23 @@ private extension ViewDefaultMainPageUsecase {
         return ThirdSectionEntity(version: dto.version, releaseNotes: dto.releaseNotes, updatedDate: calculateToday(from: dto.currentVersionReleaseDate))
     }
     
-    func alterToFourthSectionEntity(from dto: MainPageDTO) -> FourthSectionEntity {
-        var datas = [Data]()
+    func alterToFourthSectionEntity(from dto: MainPageDTO) -> [FourthSectionEntity] {
+        var entities = [FourthSectionEntity]()
         
         dto.screenshotUrls.forEach {
             guard let url = changeToURL(with: $0) else { return }
             
             do {
                 let data = try Data(contentsOf: url)
-                datas.append(data)
+                let temp = FourthSectionEntity(screenshots: data)
+                entities.append(temp)
                 
             } catch {
                 return
             }
         }
         
-        return FourthSectionEntity(screenshots: datas)
+        return entities
     }
     
     func alterToFifthSectionEntity(from dto: MainPageDTO) -> FifthSectionEntity {
@@ -134,7 +163,11 @@ private extension ViewDefaultMainPageUsecase {
         }
     }
     
-    func calculateToday(from date: Date) -> String {
+    func calculateToday(from date: String) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        guard let date = dateFormatter.date(from: date) else { return "" }
+        
         let offsetComps = Calendar.current.dateComponents([.year, .month, .day, .hour], from: date, to: Date())
         
         if let year = offsetComps.year {
@@ -151,11 +184,9 @@ private extension ViewDefaultMainPageUsecase {
         }
     }
     
-    func calculateYear(from date: Date) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy"
-        
-        return dateFormatter.string(from: date)
+    func calculateYear(from date: String) -> String {
+        let temp = date.components(separatedBy: "-")
+        return temp[0]
     }
     
     func calculateMegaByte(from byte: String) -> String {

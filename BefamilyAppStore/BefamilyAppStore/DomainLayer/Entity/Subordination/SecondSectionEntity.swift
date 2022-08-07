@@ -8,14 +8,19 @@
 import Foundation
 
 struct SecondSectionEntity {
-    let ratingCount: String
-    let averageRating: String
+    let index: Int
+    let title: String
+    let content: String
+    let extra: String
     
-    let trackContentRating: String
-    
-    let category: String
-    
-    let programmerName: String
-    
-    let languageCodesISO2A: [String]
+//    let ratingCount: String
+//    let averageRating: String
+//
+//    let trackContentRating: String
+//
+//    let category: String
+//
+//    let programmerName: String
+//
+//    let languageCodesISO2A: [String]
 }

@@ -41,6 +41,7 @@
 		D27E66DA289EA3B700C2FDB4 /* UIView +.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27E66D9289EA3B700C2FDB4 /* UIView +.swift */; };
 		D27E66DC289EB65300C2FDB4 /* UIStackView +.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27E66DB289EB65300C2FDB4 /* UIStackView +.swift */; };
 		D27E66DF289ECF5200C2FDB4 /* SubDescriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27E66DE289ECF5200C2FDB4 /* SubDescriptionCell.swift */; };
+		D27E66E1289EE11B00C2FDB4 /* CollectionViewDatasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27E66E0289EE11B00C2FDB4 /* CollectionViewDatasource.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -82,6 +83,7 @@
 		D27E66D9289EA3B700C2FDB4 /* UIView +.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView +.swift"; sourceTree = "<group>"; };
 		D27E66DB289EB65300C2FDB4 /* UIStackView +.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView +.swift"; sourceTree = "<group>"; };
 		D27E66DE289ECF5200C2FDB4 /* SubDescriptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubDescriptionCell.swift; sourceTree = "<group>"; };
+		D27E66E0289EE11B00C2FDB4 /* CollectionViewDatasource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewDatasource.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -169,6 +171,7 @@
 			isa = PBXGroup;
 			children = (
 				D27E667E289E351300C2FDB4 /* MainViewController.swift */,
+				D27E66E0289EE11B00C2FDB4 /* CollectionViewDatasource.swift */,
 				D27E66D6289EA0E700C2FDB4 /* MainTitleView.swift */,
 				D27E66DD289ECF1700C2FDB4 /* CollectionViewCell */,
 			);
@@ -473,6 +476,7 @@
 				D27E66C1289E696D00C2FDB4 /* NavigationTitleEntity.swift in Sources */,
 				D27E66C7289E6B1E00C2FDB4 /* ThirdSectionEntity.swift in Sources */,
 				D27E667B289E351300C2FDB4 /* AppDelegate.swift in Sources */,
+				D27E66E1289EE11B00C2FDB4 /* CollectionViewDatasource.swift in Sources */,
 				D27E66C9289E6B3800C2FDB4 /* FourthSectionEntity.swift in Sources */,
 				D27E66BE289E5DAD00C2FDB4 /* ViewDefaultMainPageUsecase.swift in Sources */,
 				D27E66B7289E54E200C2FDB4 /* ViewMainPageRepository.swift in Sources */,

@@ -8,5 +8,5 @@
 import Foundation
 
 struct FourthSectionEntity {
-    let screenshots: [Data]
+    let screenshots: Data
 }

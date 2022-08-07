@@ -10,9 +10,9 @@ import Foundation
 struct MainPageEntity {
     let naviTitle: NavigationTitleEntity
     let mainTitle: MainTitleEntity
-    let secondSection: SecondSectionEntity
+    let secondSection: [SecondSectionEntity]
     let thirdSection: ThirdSectionEntity
-    let fourthSection: FourthSectionEntity
+    let fourthSection: [FourthSectionEntity]
     let fifthSection: FifthSectionEntity
     let SixthSection: SixthSectionEntity
 }

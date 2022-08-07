@@ -21,8 +21,10 @@ final class SubDescriptionCell: UICollectionViewCell {
     
     private var stackView: UIStackView = {
         let stack = UIStackView()
-        stack.distribution = .equalCentering
+        stack.distribution = .fillEqually
         stack.axis = .vertical
+        stack.alignment = .center
+        stack.translatesAutoresizingMaskIntoConstraints = false
         
         return stack
     }()
@@ -30,7 +32,7 @@ final class SubDescriptionCell: UICollectionViewCell {
     private var titleLabel: UILabel = {
         let label = UILabel()
         label.textColor = .gray
-        label.font = .systemFont(ofSize: 14, weight: .bold)
+        label.font = .systemFont(ofSize: 16, weight: .bold)
         label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
@@ -45,10 +47,19 @@ final class SubDescriptionCell: UICollectionViewCell {
         return label
     }()
     
+    private var contentImage: UIImageView = {
+        let imageView = UIImageView()
+        imageView.tintColor = .gray
+        imageView.sizeToFit()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return imageView
+    }()
+    
     private var extraLabel: UILabel = {
         let label = UILabel()
         label.textColor = .gray
-        label.font = .systemFont(ofSize: 15, weight: .bold)
+        label.font = .systemFont(ofSize: 17, weight: .bold)
         label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
@@ -56,7 +67,7 @@ final class SubDescriptionCell: UICollectionViewCell {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        configureLayouts()
+//        configureLayouts()
     }
 
     @available (*, unavailable)
@@ -66,15 +77,23 @@ final class SubDescriptionCell: UICollectionViewCell {
     
     func set(itemSection: Int, entity: SecondSectionEntity) {
         guard let validCase = ItemCase.init(rawValue: itemSection) else { return }
+        configureLayouts(with: validCase)
         configureItem(with: validCase, entity: entity)
     }
 }
 
 private extension SubDescriptionCell {
     
-    func configureLayouts() {
-        contentView.addSubviews(stackView)
-        stackView.addArrangedSubviews(titleLabel, contentLabel, extraLabel)
+    func configureLayouts(with validCase: ItemCase) {
+        switch validCase {
+        case .firstItem, .secondItem, .fifthItem:
+            contentView.addSubviews(stackView)
+            stackView.addArrangedSubviews(titleLabel, contentLabel, extraLabel)
+            
+        case .thirdItem, .fourthItem:
+            contentView.addSubviews(stackView)
+            stackView.addArrangedSubviews(titleLabel, contentImage, extraLabel)
+        }
         
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: contentView.topAnchor),
@@ -86,58 +105,16 @@ private extension SubDescriptionCell {
     
     func configureItem(with validCase: ItemCase, entity: SecondSectionEntity) {
         switch validCase {
-        case .firstItem:
-            titleLabel.text = "\(entity.ratingCount)개의 평가"
-            contentLabel.text = entity.averageRating
-            configureRateStar(about: entity.averageRating)
+        case .firstItem, .secondItem, .fifthItem:
+            titleLabel.text = entity.title
+            contentLabel.text = entity.content
+            extraLabel.text = entity.extra
             
-        case .secondItem:
-            titleLabel.text = "연령"
-            contentLabel.text = entity.trackContentRating
-            extraLabel.text = "세"
-            
-        case .thirdItem:
-            titleLabel.text = "카테고리"
-            extraLabel.text = entity.category
-            configureImageToLabel(with: "bubble.left.and.bubble.right.fill")
-            
-        case .fourthItem:
-            titleLabel.text = "개발자"
-            extraLabel.text = entity.programmerName
-            configureImageToLabel(with: "person.crop.circle")
-        
-        case .fifthItem:
-            let aboutLanguage = configureLanguage(with: entity.languageCodesISO2A)
-            
-            titleLabel.text = "언어"
-            contentLabel.text = aboutLanguage.0
-            extraLabel.text = "\(aboutLanguage.1)개의 언어"
+        case .thirdItem, .fourthItem:
+            titleLabel.text = entity.title
+            contentImage.image = UIImage(systemName: entity.content)
+            extraLabel.text = entity.extra
         }
-    }
-    
-    func configureRateStar(about rate: String) {
-        guard let validRate = Float(rate) else { return }
-        let tenthDigit = Int(round(validRate * 10)) / 10
-        
-        let attributedString = NSMutableAttributedString(string: "")
-        let imageAttatchment = NSTextAttachment()
-        
-        for _ in 0 ..< tenthDigit {
-            imageAttatchment.image = UIImage(systemName: "star.fill")
-            attributedString.append(NSAttributedString(attachment: imageAttatchment))
-        }
-        
-        if tenthDigit < 5 {
-            imageAttatchment.image = UIImage(systemName: "star.leadinghalf.filled")
-            attributedString.append(NSAttributedString(attachment: imageAttatchment))
-            
-            for _ in 0 ..< 4 - tenthDigit {
-                imageAttatchment.image = UIImage(systemName: "star")
-                attributedString.append(NSAttributedString(attachment: imageAttatchment))
-            }
-        }
-        
-        extraLabel.attributedText = attributedString
     }
     
     func configureImageToLabel(with systemName: String) {
@@ -147,18 +124,5 @@ private extension SubDescriptionCell {
         attributedString.append(NSAttributedString(attachment: imageAttatchment))
         
         contentLabel.attributedText = attributedString
-    }
-    
-    func configureLanguage(with languageCodes: [String]) -> (String, Int) {
-        var languageCode = ""
-        
-        if let koIndex = languageCodes.firstIndex(of: "KO") {
-            languageCode = languageCodes[koIndex]
-            
-        } else {
-            languageCode = languageCodes[0]
-        }
-        
-        return (languageCode, languageCodes.count - 1)
     }
 }
