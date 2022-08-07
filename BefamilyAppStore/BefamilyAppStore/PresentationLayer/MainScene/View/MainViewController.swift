@@ -22,6 +22,7 @@ final class MainViewController: UIViewController {
     private var titleView = MainTitleView()
     private var featureView = NewFeatureView()
     private var screenView = ScreenshotView()
+    private var descriptionView = DescriptionView()
     
     private lazy var subDescriptionCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -64,13 +65,14 @@ private extension MainViewController {
     func configureLayouts() {
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
-        contentView.addSubviews(titleView, subDescriptionCollectionView, featureView, screenView)
+        contentView.addSubviews(titleView, subDescriptionCollectionView, featureView, screenView, descriptionView)
         
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         contentView.translatesAutoresizingMaskIntoConstraints = false
         titleView.translatesAutoresizingMaskIntoConstraints = false
         featureView.translatesAutoresizingMaskIntoConstraints = false
         screenView.translatesAutoresizingMaskIntoConstraints = false
+        descriptionView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: view.topAnchor),
@@ -114,6 +116,13 @@ private extension MainViewController {
             screenView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             screenView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.6)
         ])
+        
+        NSLayoutConstraint.activate([
+            descriptionView.topAnchor.constraint(equalTo: screenView.bottomAnchor),
+            descriptionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            descriptionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            descriptionView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.2)
+        ])
     }
     
     func configureBinding() {
@@ -131,6 +140,7 @@ private extension MainViewController {
                 self.subDescriptionCollectionView.reloadData()
                 
                 self.featureView.set(with: entity.thirdSection)
+                self.descriptionView.set(with: entity.fifthSection)
                 
                 self.mainViewModel.enquireScreenShotImages(with: entity.fourthSection)
             }
@@ -155,12 +165,13 @@ private extension MainViewController {
     func setContentViewHeight() {
         NSLayoutConstraint.deactivate(contentViewHeightConstraint)
 
-        let contentViewHeight = titleView.frame.height + subDescriptionCollectionView.frame.height + featureView.frame.height + screenView.frame.height
+        let contentViewHeight = titleView.frame.height + subDescriptionCollectionView.frame.height + featureView.frame.height + screenView.frame.height + descriptionView.frame.height
 
         contentViewHeightConstraint = [contentView.heightAnchor.constraint(equalToConstant: contentViewHeight)]
         NSLayoutConstraint.activate(contentViewHeightConstraint)
         
         featureView.layer.addBorder([.bottom], color: .gray, width: 0.5)
         screenView.layer.addBorder([.bottom], color: .gray, width: 0.5)
+        descriptionView.layer.addBorder([.bottom], color: .gray, width: 0.5)
     }
 }

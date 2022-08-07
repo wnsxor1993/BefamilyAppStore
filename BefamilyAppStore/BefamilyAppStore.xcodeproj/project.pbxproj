@@ -13,6 +13,7 @@
 		D2772A1B289F8EEC00CDC77F /* ScreenshotCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2772A1A289F8EEC00CDC77F /* ScreenshotCell.swift */; };
 		D2772A1D289F93D700CDC77F /* ImageCacheService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2772A1C289F93D700CDC77F /* ImageCacheService.swift */; };
 		D2772A21289FA61600CDC77F /* ScreenshotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2772A20289FA61600CDC77F /* ScreenshotView.swift */; };
+		D2772A23289FAB9D00CDC77F /* DescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2772A22289FAB9D00CDC77F /* DescriptionView.swift */; };
 		D27E667B289E351300C2FDB4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27E667A289E351300C2FDB4 /* AppDelegate.swift */; };
 		D27E667D289E351300C2FDB4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27E667C289E351300C2FDB4 /* SceneDelegate.swift */; };
 		D27E667F289E351300C2FDB4 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27E667E289E351300C2FDB4 /* MainViewController.swift */; };
@@ -58,6 +59,7 @@
 		D2772A1A289F8EEC00CDC77F /* ScreenshotCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotCell.swift; sourceTree = "<group>"; };
 		D2772A1C289F93D700CDC77F /* ImageCacheService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheService.swift; sourceTree = "<group>"; };
 		D2772A20289FA61600CDC77F /* ScreenshotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotView.swift; sourceTree = "<group>"; };
+		D2772A22289FAB9D00CDC77F /* DescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionView.swift; sourceTree = "<group>"; };
 		D27E6677289E351300C2FDB4 /* BefamilyAppStore.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BefamilyAppStore.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D27E667A289E351300C2FDB4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D27E667C289E351300C2FDB4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -185,6 +187,7 @@
 				D27E66D6289EA0E700C2FDB4 /* MainTitleView.swift */,
 				D2772A16289F71B300CDC77F /* NewFeatureView.swift */,
 				D2772A20289FA61600CDC77F /* ScreenshotView.swift */,
+				D2772A22289FAB9D00CDC77F /* DescriptionView.swift */,
 				D27E66DD289ECF1700C2FDB4 /* CollectionViewCell */,
 			);
 			path = View;
@@ -487,6 +490,7 @@
 				D27E66A1289E415500C2FDB4 /* NetworkError.swift in Sources */,
 				D27E66DF289ECF5200C2FDB4 /* SubDescriptionCell.swift in Sources */,
 				D27E66CD289E6BB500C2FDB4 /* SixthSectionEntity.swift in Sources */,
+				D2772A23289FAB9D00CDC77F /* DescriptionView.swift in Sources */,
 				D27E66DC289EB65300C2FDB4 /* UIStackView +.swift in Sources */,
 				D27E66C1289E696D00C2FDB4 /* NavigationTitleEntity.swift in Sources */,
 				D2772A21289FA61600CDC77F /* ScreenshotView.swift in Sources */,
