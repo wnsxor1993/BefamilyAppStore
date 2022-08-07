@@ -75,7 +75,7 @@ final class SubDescriptionCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func set(itemSection: Int, entity: SecondSectionEntity) {
+    func set(itemSection: Int, entity: SubDescriptionEntity) {
         guard let validCase = ItemCase.init(rawValue: itemSection) else { return }
         configureLayouts(with: validCase)
         configureItem(with: validCase, entity: entity)
@@ -87,11 +87,11 @@ private extension SubDescriptionCell {
     func configureLayouts(with validCase: ItemCase) {
         switch validCase {
         case .firstItem, .secondItem, .fifthItem:
-            contentView.addSubviews(stackView)
+            contentView.addSubview(stackView)
             stackView.addArrangedSubviews(titleLabel, contentLabel, extraLabel)
             
         case .thirdItem, .fourthItem:
-            contentView.addSubviews(stackView)
+            contentView.addSubview(stackView)
             stackView.addArrangedSubviews(titleLabel, contentImage, extraLabel)
         }
         
@@ -103,7 +103,7 @@ private extension SubDescriptionCell {
         ])
     }
     
-    func configureItem(with validCase: ItemCase, entity: SecondSectionEntity) {
+    func configureItem(with validCase: ItemCase, entity: SubDescriptionEntity) {
         switch validCase {
         case .firstItem, .secondItem, .fifthItem:
             titleLabel.text = entity.title
@@ -115,14 +115,5 @@ private extension SubDescriptionCell {
             contentImage.image = UIImage(systemName: entity.content)
             extraLabel.text = entity.extra
         }
-    }
-    
-    func configureImageToLabel(with systemName: String) {
-        let attributedString = NSMutableAttributedString(string: "")
-        let imageAttatchment = NSTextAttachment()
-        imageAttatchment.image = UIImage(systemName: systemName)
-        attributedString.append(NSAttributedString(attachment: imageAttatchment))
-        
-        contentLabel.attributedText = attributedString
     }
 }

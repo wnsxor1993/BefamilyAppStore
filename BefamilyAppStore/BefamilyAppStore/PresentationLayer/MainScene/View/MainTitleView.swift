@@ -32,7 +32,7 @@ final class MainTitleView: UIView {
     private var titleLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 23, weight: .bold)
-        label.textColor = .white
+        label.textColor = .black
         label.numberOfLines = 2
         label.translatesAutoresizingMaskIntoConstraints = false
         

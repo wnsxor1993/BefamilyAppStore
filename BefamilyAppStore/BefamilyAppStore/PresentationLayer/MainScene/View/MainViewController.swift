@@ -14,21 +14,22 @@ final class MainViewController: UIViewController {
     private var mainViewModel = MainViewModel()
     private let disposeBag = DisposeBag()
     
-    private var subDescriptionDatasource: CollectionViewDatasource<SecondSectionEntity, SubDescriptionCell>?
+    private var subDescriptionDatasource: CollectionViewDatasource<SubDescriptionEntity, SubDescriptionCell>?
     
     private var scrollView = UIScrollView()
     private var contentView = UIView()
     private var titleView = MainTitleView()
+    private var featureView = NewFeatureView()
     
     private lazy var subDescriptionCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
+        layout.itemSize = CGSize(width: view.frame.width / 3.3, height: view.frame.height * 0.15)
         layout.scrollDirection = .horizontal
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.isScrollEnabled = true
         collectionView.backgroundColor = .black
         collectionView.register(SubDescriptionCell.self, forCellWithReuseIdentifier: SubDescriptionCell.reuseIdentifier)
-        collectionView.delegate = self
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         
         return collectionView
@@ -36,25 +37,18 @@ final class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .white
         configureLayouts()
         configureBinding()
+        subDescriptionCollectionView.delegate = self
         mainViewModel.enquireMainPageData()
     }
 }
 
-extension MainViewController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = collectionView.frame.width / 3.3
-        return CGSize(width: width, height: subDescriptionCollectionView.frame.height)
-    }
+extension MainViewController: UICollectionViewDelegate {
 
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 15
-    }
-
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 1
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("\(indexPath.row)")
     }
 }
 
@@ -63,11 +57,12 @@ private extension MainViewController {
     func configureLayouts() {
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
-        contentView.addSubviews(titleView, subDescriptionCollectionView)
+        contentView.addSubviews(titleView, subDescriptionCollectionView, featureView)
         
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         contentView.translatesAutoresizingMaskIntoConstraints = false
         titleView.translatesAutoresizingMaskIntoConstraints = false
+        featureView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: view.topAnchor),
@@ -97,6 +92,13 @@ private extension MainViewController {
             subDescriptionCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             subDescriptionCollectionView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.15)
         ])
+        
+        NSLayoutConstraint.activate([
+            featureView.topAnchor.constraint(equalTo: subDescriptionCollectionView.bottomAnchor),
+            featureView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            featureView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            featureView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.2)
+        ])
     }
     
     func configureBinding() {
@@ -107,11 +109,13 @@ private extension MainViewController {
             .bind { [weak self] entity in
                 // TODO: 데이터소스나 뷰에 데이터 연결 하위 메서드 생성하고 여기서 불러주기
                 guard let self = self else { return }
-                self.subDescriptionDatasource = CollectionViewDatasource(entity.secondSection, reuseIdentifier: SubDescriptionCell.reuseIdentifier) { (data: SecondSectionEntity, cell: SubDescriptionCell) in
+                self.subDescriptionDatasource = CollectionViewDatasource(entity.secondSection, reuseIdentifier: SubDescriptionCell.reuseIdentifier) { (data: SubDescriptionEntity, cell: SubDescriptionCell) in
                     cell.set(itemSection: data.index, entity: data)
                 }
                 self.subDescriptionCollectionView.dataSource = self.subDescriptionDatasource
                 self.subDescriptionCollectionView.reloadData()
+                
+                self.featureView.set(with: entity.thirdSection)
             }
             .disposed(by: disposeBag)
     }

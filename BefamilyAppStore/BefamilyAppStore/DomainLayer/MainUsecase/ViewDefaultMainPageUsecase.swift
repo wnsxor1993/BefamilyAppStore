@@ -68,8 +68,8 @@ private extension ViewDefaultMainPageUsecase {
         return MainTitleEntity(appIconImage: changeToData(with: appIconImageURL), appName: dto.trackName, downloadURL: changeToURL(with: dto.trackViewURL))
     }
     
-    func alterToSecondSectionEntity(from dto: MainPageDTO) -> [SecondSectionEntity] {
-        var entities = [SecondSectionEntity]()
+    func alterToSecondSectionEntity(from dto: MainPageDTO) -> [SubDescriptionEntity] {
+        var entities = [SubDescriptionEntity]()
         var category = ""
         
         if let koIndex = dto.genres.firstIndex(of: "KO") {
@@ -81,23 +81,23 @@ private extension ViewDefaultMainPageUsecase {
         for num in 0 ... 4 {
             switch num {
             case 0 :
-                let temp = SecondSectionEntity(index: num, title: "\(dto.userRatingCountForCurrentVersion)개의 평가", content: "\(round(dto.averageUserRating * 10) / 10)", extra: "★★★★☆")
+                let temp = SubDescriptionEntity(index: num, title: "\(dto.userRatingCountForCurrentVersion)개의 평가", content: "\(round(dto.averageUserRating * 10) / 10)", extra: "★★★★☆")
                 entities.append(temp)
                 
             case 1 :
-                let temp = SecondSectionEntity(index: num, title: "연령", content: dto.trackContentRating, extra: "세")
+                let temp = SubDescriptionEntity(index: num, title: "연령", content: dto.trackContentRating, extra: "세")
                 entities.append(temp)
                 
             case 2 :
-                let temp = SecondSectionEntity(index: num, title: "카테고리", content: "bubble.left.and.bubble.right.fill", extra: category)
+                let temp = SubDescriptionEntity(index: num, title: "카테고리", content: "bubble.left.and.bubble.right.fill", extra: category)
                 entities.append(temp)
                 
             case 3 :
-                let temp = SecondSectionEntity(index: num, title: "개발자", content: dto.artistName, extra: "person.crop.circle")
+                let temp = SubDescriptionEntity(index: num, title: "개발자", content: dto.artistName, extra: "person.crop.circle")
                 entities.append(temp)
                 
             case 4 :
-                let temp = SecondSectionEntity(index: num, title: "언어", content: category, extra: "\(dto.genres.count - 1)개의 언어")
+                let temp = SubDescriptionEntity(index: num, title: "언어", content: category, extra: "\(dto.genres.count - 1)개의 언어")
                 entities.append(temp)
                 
             default:
@@ -165,19 +165,19 @@ private extension ViewDefaultMainPageUsecase {
     
     func calculateToday(from date: String) -> String {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:SSZ"
         guard let date = dateFormatter.date(from: date) else { return "" }
         
         let offsetComps = Calendar.current.dateComponents([.year, .month, .day, .hour], from: date, to: Date())
         
-        if let year = offsetComps.year {
-            return "\(year)"
+        if let year = offsetComps.year, year > 0 {
+            return "\(year)년 전"
             
-        } else if let month = offsetComps.month {
-            return "\(month)"
+        } else if let month = offsetComps.month, month > 0 {
+            return "\(month)개월 전"
             
-        } else if let day = offsetComps.day {
-            return "\(day)"
+        } else if let day = offsetComps.day, day > 0 {
+            return "\(day)일 전"
             
         } else {
             return ""
