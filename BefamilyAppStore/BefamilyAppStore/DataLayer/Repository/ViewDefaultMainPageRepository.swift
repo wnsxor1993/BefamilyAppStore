@@ -55,10 +55,15 @@ final class ViewDefaultMainPageRepository: ViewMainPageRepository {
                     tempImages.append(cachedImage)
                     
                 } else {
-                    guard let image = UIImage(data: $0.screenshots) else { return }
+                    do {
+                        let data = try Data(contentsOf: $0.validURL)
+                        guard let image = UIImage(data: data) else { return }
+                        ImageCacheService.saveData(image: image, url: $0.validURL)
+                        tempImages.append(image)
                     
-                    ImageCacheService.saveData(image: image, url: $0.validURL)
-                    tempImages.append(image)
+                    } catch {
+                        return
+                    }
                 }
             }
             

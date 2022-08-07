@@ -131,15 +131,16 @@ private extension ViewDefaultMainPageUsecase {
         
         dto.screenshotUrls.forEach {
             guard let url = changeToURL(with: $0) else { return }
-            
-            do {
-                let data = try Data(contentsOf: url)
-                let temp = FourthSectionEntity(validURL: url, screenshots: data)
-                entities.append(temp)
-                
-            } catch {
-                return
-            }
+            let temp = FourthSectionEntity(validURL: url)
+            entities.append(temp)
+//            do {
+//                let data = try Data(contentsOf: url)
+//                let temp = FourthSectionEntity(validURL: url, screenshots: data)
+//                entities.append(temp)
+//
+//            } catch {
+//                return
+//            }
         }
         
         return entities

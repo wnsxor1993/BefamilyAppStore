@@ -9,5 +9,5 @@ import Foundation
 
 struct FourthSectionEntity {
     let validURL: URL
-    let screenshots: Data
+//    let screenshots: Data
 }

@@ -14,12 +14,15 @@ class ImageCacheService {
 
     static func saveData(image: UIImage?, url: URL) {
         guard let image = image else { return }
-        shared.setObject(image, forKey: url.lastPathComponent as NSString)
+        
+        let nextLastPath = url.pathComponents[url.pathComponents.count - 2]
+
+        shared.setObject(image, forKey: nextLastPath as NSString)
         guard let pathURL = path else { return }
 
         let fileManager = FileManager()
         var filePath = URL(fileURLWithPath: pathURL)
-        filePath.appendPathComponent(url.lastPathComponent)
+        filePath.appendPathComponent(nextLastPath)
 
         guard !fileManager.fileExists(atPath: filePath.path) else { return }
 
@@ -27,12 +30,14 @@ class ImageCacheService {
     }
 
     static func loadData(url: URL) -> UIImage? {
-        guard let cachedData = shared.object(forKey: url.lastPathComponent as NSString) else {
+        let nextLastPath = url.pathComponents[url.pathComponents.count - 2]
+        
+        guard let cachedData = shared.object(forKey: nextLastPath as NSString) else {
 
             guard let pathURL = path else { return nil }
             let fileManager = FileManager()
             var filePath = URL(fileURLWithPath: pathURL)
-            filePath.appendPathComponent(url.lastPathComponent)
+            filePath.appendPathComponent(nextLastPath)
 
             if fileManager.fileExists(atPath: pathURL) {
                 guard let imageData = try? Data(contentsOf: filePath) else { return nil }
