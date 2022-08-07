@@ -21,6 +21,7 @@ final class MainViewController: UIViewController {
     private var contentView = UIView()
     private var titleView = MainTitleView()
     private var featureView = NewFeatureView()
+    private var screenView = ScreenshotView()
     
     private lazy var subDescriptionCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -34,26 +35,6 @@ final class MainViewController: UIViewController {
         collectionView.backgroundColor = .white
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.register(SubDescriptionCell.self, forCellWithReuseIdentifier: SubDescriptionCell.reuseIdentifier)
-        collectionView.delegate = self
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        
-        return collectionView
-    }()
-    
-    private lazy var screenshotCollectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        let height = view.frame.height * 0.6
-        layout.itemSize = CGSize(width: height * 0.56, height: height)
-        layout.minimumLineSpacing = 5
-        layout.scrollDirection = .horizontal
-        
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.layer.borderWidth = 0.5
-        collectionView.layer.borderColor = UIColor.gray.cgColor
-        collectionView.isScrollEnabled = true
-        collectionView.backgroundColor = .white
-        collectionView.showsHorizontalScrollIndicator = false
-        collectionView.register(ScreenshotCell.self, forCellWithReuseIdentifier: ScreenshotCell.reuseIdentifier)
         collectionView.delegate = self
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -83,12 +64,13 @@ private extension MainViewController {
     func configureLayouts() {
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
-        contentView.addSubviews(titleView, subDescriptionCollectionView, featureView, screenshotCollectionView)
+        contentView.addSubviews(titleView, subDescriptionCollectionView, featureView, screenView)
         
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         contentView.translatesAutoresizingMaskIntoConstraints = false
         titleView.translatesAutoresizingMaskIntoConstraints = false
         featureView.translatesAutoresizingMaskIntoConstraints = false
+        screenView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: view.topAnchor),
@@ -114,8 +96,8 @@ private extension MainViewController {
         
         NSLayoutConstraint.activate([
             subDescriptionCollectionView.topAnchor.constraint(equalTo: titleView.bottomAnchor),
-            subDescriptionCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: -1),
-            subDescriptionCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 1),
+            subDescriptionCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            subDescriptionCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             subDescriptionCollectionView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.15)
         ])
         
@@ -127,10 +109,10 @@ private extension MainViewController {
         ])
         
         NSLayoutConstraint.activate([
-            screenshotCollectionView.topAnchor.constraint(equalTo: featureView.bottomAnchor),
-            screenshotCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            screenshotCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            screenshotCollectionView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.6)
+            screenView.topAnchor.constraint(equalTo: featureView.bottomAnchor),
+            screenView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            screenView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            screenView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.6)
         ])
     }
     
@@ -161,8 +143,9 @@ private extension MainViewController {
                 self.screenshotDatasource = CollectionViewDatasource(images, reuseIdentifier: ScreenshotCell.reuseIdentifier) { (image: UIImage, cell: ScreenshotCell) in
                     cell.set(image: image)
                 }
-                self.screenshotCollectionView.dataSource = self.screenshotDatasource
-                self.screenshotCollectionView.reloadData()
+                self.screenView.calculateItemSize()
+                self.screenView.set(delegate: self, dataSource: self.screenshotDatasource)
+                self.screenView.screenshotCollectionView.reloadData()
                 
                 self.setContentViewHeight()
             }
@@ -172,9 +155,12 @@ private extension MainViewController {
     func setContentViewHeight() {
         NSLayoutConstraint.deactivate(contentViewHeightConstraint)
 
-        let contentViewHeight = titleView.frame.height + subDescriptionCollectionView.frame.height + featureView.frame.height + screenshotCollectionView.frame.height
+        let contentViewHeight = titleView.frame.height + subDescriptionCollectionView.frame.height + featureView.frame.height + screenView.frame.height
 
         contentViewHeightConstraint = [contentView.heightAnchor.constraint(equalToConstant: contentViewHeight)]
         NSLayoutConstraint.activate(contentViewHeightConstraint)
+        
+        featureView.layer.addBorder([.bottom], color: .gray, width: 0.5)
+        screenView.layer.addBorder([.bottom], color: .gray, width: 0.5)
     }
 }
