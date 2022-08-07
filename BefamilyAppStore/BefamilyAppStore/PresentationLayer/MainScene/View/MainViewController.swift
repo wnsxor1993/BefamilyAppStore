@@ -28,12 +28,15 @@ final class MainViewController: UIViewController {
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.isScrollEnabled = true
-        collectionView.backgroundColor = .black
+        collectionView.backgroundColor = .white
+        collectionView.showsHorizontalScrollIndicator = false
         collectionView.register(SubDescriptionCell.self, forCellWithReuseIdentifier: SubDescriptionCell.reuseIdentifier)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         
         return collectionView
     }()
+    
+    private var contentViewHeightConstraint = [NSLayoutConstraint]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -116,7 +119,18 @@ private extension MainViewController {
                 self.subDescriptionCollectionView.reloadData()
                 
                 self.featureView.set(with: entity.thirdSection)
+                
+                self.setContentViewHeight()
             }
             .disposed(by: disposeBag)
+    }
+    
+    func setContentViewHeight() {
+        NSLayoutConstraint.deactivate(contentViewHeightConstraint)
+
+        let contentViewHeight = titleView.frame.height + subDescriptionCollectionView.frame.height + featureView.frame.height
+
+        contentViewHeightConstraint = [contentView.heightAnchor.constraint(equalToConstant: contentViewHeight)]
+        NSLayoutConstraint.activate(contentViewHeightConstraint)
     }
 }

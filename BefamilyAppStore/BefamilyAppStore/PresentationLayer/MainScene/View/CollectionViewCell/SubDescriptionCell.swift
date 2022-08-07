@@ -85,13 +85,13 @@ final class SubDescriptionCell: UICollectionViewCell {
 private extension SubDescriptionCell {
     
     func configureLayouts(with validCase: ItemCase) {
+        contentView.addSubview(stackView)
+        
         switch validCase {
         case .firstItem, .secondItem, .fifthItem:
-            contentView.addSubview(stackView)
             stackView.addArrangedSubviews(titleLabel, contentLabel, extraLabel)
             
         case .thirdItem, .fourthItem:
-            contentView.addSubview(stackView)
             stackView.addArrangedSubviews(titleLabel, contentImage, extraLabel)
         }
         

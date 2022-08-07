@@ -72,10 +72,10 @@ private extension ViewDefaultMainPageUsecase {
         var entities = [SubDescriptionEntity]()
         var category = ""
         
-        if let koIndex = dto.genres.firstIndex(of: "KO") {
-            category = dto.genres[koIndex]
+        if let koIndex = dto.languageCodesISO2A.firstIndex(of: "KO") {
+            category = dto.languageCodesISO2A[koIndex]
         } else {
-            category = dto.genres[0]
+            category = dto.languageCodesISO2A[0]
         }
         
         for num in 0 ... 4 {
@@ -89,15 +89,15 @@ private extension ViewDefaultMainPageUsecase {
                 entities.append(temp)
                 
             case 2 :
-                let temp = SubDescriptionEntity(index: num, title: "카테고리", content: "bubble.left.and.bubble.right.fill", extra: category)
+                let temp = SubDescriptionEntity(index: num, title: "카테고리", content: "bubble.left.and.bubble.right.fill", extra: dto.genres[0])
                 entities.append(temp)
                 
             case 3 :
-                let temp = SubDescriptionEntity(index: num, title: "개발자", content: dto.artistName, extra: "person.crop.circle")
+                let temp = SubDescriptionEntity(index: num, title: "개발자", content: "person.crop.circle", extra: dto.artistName)
                 entities.append(temp)
                 
             case 4 :
-                let temp = SubDescriptionEntity(index: num, title: "언어", content: category, extra: "\(dto.genres.count - 1)개의 언어")
+                let temp = SubDescriptionEntity(index: num, title: "언어", content: category, extra: "+ \(dto.languageCodesISO2A.count - 1)개의 언어")
                 entities.append(temp)
                 
             default:
