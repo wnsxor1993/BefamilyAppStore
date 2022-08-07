@@ -27,6 +27,8 @@ final class MainViewController: UIViewController {
         layout.scrollDirection = .horizontal
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.layer.borderWidth = 0.5
+        collectionView.layer.borderColor = UIColor.gray.cgColor
         collectionView.isScrollEnabled = true
         collectionView.backgroundColor = .white
         collectionView.showsHorizontalScrollIndicator = false
@@ -91,8 +93,8 @@ private extension MainViewController {
         
         NSLayoutConstraint.activate([
             subDescriptionCollectionView.topAnchor.constraint(equalTo: titleView.bottomAnchor),
-            subDescriptionCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            subDescriptionCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            subDescriptionCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: -1),
+            subDescriptionCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 1),
             subDescriptionCollectionView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.15)
         ])
         

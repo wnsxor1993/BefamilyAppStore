@@ -80,6 +80,7 @@ final class NewFeatureView: UIView {
 private extension NewFeatureView {
     
     func configureLayouts() {
+        layer.addBorder([.bottom], color: .gray, width: 0.5)
         addSubviews(titleLabel, versionLabel, dateLabel, descriptionLabel, moreButton)
         
         NSLayoutConstraint.activate([

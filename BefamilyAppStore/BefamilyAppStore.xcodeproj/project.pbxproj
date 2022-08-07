@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		44E66C87376FB2B3A73FAE7B /* Pods_BefamilyAppStore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E0AB42286546B483890220F /* Pods_BefamilyAppStore.framework */; };
 		D2772A17289F71B300CDC77F /* NewFeatureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2772A16289F71B300CDC77F /* NewFeatureView.swift */; };
+		D2772A19289F8AD300CDC77F /* CALayer +.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2772A18289F8AD300CDC77F /* CALayer +.swift */; };
 		D27E667B289E351300C2FDB4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27E667A289E351300C2FDB4 /* AppDelegate.swift */; };
 		D27E667D289E351300C2FDB4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27E667C289E351300C2FDB4 /* SceneDelegate.swift */; };
 		D27E667F289E351300C2FDB4 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27E667E289E351300C2FDB4 /* MainViewController.swift */; };
@@ -50,6 +51,7 @@
 		2E0AB42286546B483890220F /* Pods_BefamilyAppStore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BefamilyAppStore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2DB2240B9A7F501B9322CDE /* Pods-BefamilyAppStore.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BefamilyAppStore.debug.xcconfig"; path = "Target Support Files/Pods-BefamilyAppStore/Pods-BefamilyAppStore.debug.xcconfig"; sourceTree = "<group>"; };
 		D2772A16289F71B300CDC77F /* NewFeatureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewFeatureView.swift; sourceTree = "<group>"; };
+		D2772A18289F8AD300CDC77F /* CALayer +.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer +.swift"; sourceTree = "<group>"; };
 		D27E6677289E351300C2FDB4 /* BefamilyAppStore.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BefamilyAppStore.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D27E667A289E351300C2FDB4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D27E667C289E351300C2FDB4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -342,6 +344,7 @@
 			children = (
 				D27E66D9289EA3B700C2FDB4 /* UIView +.swift */,
 				D27E66DB289EB65300C2FDB4 /* UIStackView +.swift */,
+				D2772A18289F8AD300CDC77F /* CALayer +.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -494,6 +497,7 @@
 				D27E66B2289E528A00C2FDB4 /* ExtraError.swift in Sources */,
 				D27E66C5289E6A5300C2FDB4 /* SubDescriptionEntity.swift in Sources */,
 				D27E667D289E351300C2FDB4 /* SceneDelegate.swift in Sources */,
+				D2772A19289F8AD300CDC77F /* CALayer +.swift in Sources */,
 				D27E6695289E3DC800C2FDB4 /* EndPoint.swift in Sources */,
 				D27E66B0289E521800C2FDB4 /* DataError.swift in Sources */,
 				D27E669F289E40CB00C2FDB4 /* NetworkService.swift in Sources */,

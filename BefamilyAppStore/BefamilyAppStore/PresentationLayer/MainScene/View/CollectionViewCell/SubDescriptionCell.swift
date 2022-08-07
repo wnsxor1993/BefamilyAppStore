@@ -67,7 +67,6 @@ final class SubDescriptionCell: UICollectionViewCell {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-//        configureLayouts()
     }
 
     @available (*, unavailable)
@@ -79,6 +78,10 @@ final class SubDescriptionCell: UICollectionViewCell {
         guard let validCase = ItemCase.init(rawValue: itemSection) else { return }
         configureLayouts(with: validCase)
         configureItem(with: validCase, entity: entity)
+        
+        if itemSection > 0 {
+            layer.addBorder([.left], color: .gray, width: 0.8)
+        }
     }
 }
 
