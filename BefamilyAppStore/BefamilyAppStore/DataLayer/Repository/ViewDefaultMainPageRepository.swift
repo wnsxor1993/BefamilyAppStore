@@ -44,4 +44,27 @@ final class ViewDefaultMainPageRepository: ViewMainPageRepository {
             return Disposables.create()
         }
     }
+    
+    func searchImage(with entities: [FourthSectionEntity]) -> Observable<[UIImage]> {
+        
+        return Observable.create { observer -> Disposable in
+            var tempImages = [UIImage]()
+            
+            entities.forEach {
+                if let cachedImage = ImageCacheService.loadData(url: $0.validURL) {
+                    tempImages.append(cachedImage)
+                    
+                } else {
+                    guard let image = UIImage(data: $0.screenshots) else { return }
+                    
+                    ImageCacheService.saveData(image: image, url: $0.validURL)
+                    tempImages.append(image)
+                }
+            }
+            
+            observer.onNext(tempImages)
+            
+            return Disposables.create()
+        }
+    }
 }

@@ -15,6 +15,7 @@ final class MainViewController: UIViewController {
     private let disposeBag = DisposeBag()
     
     private var subDescriptionDatasource: CollectionViewDatasource<SubDescriptionEntity, SubDescriptionCell>?
+    private var screenshotDatasource: CollectionViewDatasource<UIImage, ScreenshotCell>?
     
     private var scrollView = UIScrollView()
     private var contentView = UIView()
@@ -33,6 +34,27 @@ final class MainViewController: UIViewController {
         collectionView.backgroundColor = .white
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.register(SubDescriptionCell.self, forCellWithReuseIdentifier: SubDescriptionCell.reuseIdentifier)
+        collectionView.delegate = self
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return collectionView
+    }()
+    
+    private lazy var screenshotCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        let height = view.frame.height * 0.6
+        layout.itemSize = CGSize(width: height * 0.56, height: height)
+        layout.minimumLineSpacing = 5
+        layout.scrollDirection = .horizontal
+        
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.layer.borderWidth = 0.5
+        collectionView.layer.borderColor = UIColor.gray.cgColor
+        collectionView.isScrollEnabled = true
+        collectionView.backgroundColor = .white
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.register(ScreenshotCell.self, forCellWithReuseIdentifier: ScreenshotCell.reuseIdentifier)
+        collectionView.delegate = self
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         
         return collectionView
@@ -45,7 +67,6 @@ final class MainViewController: UIViewController {
         view.backgroundColor = .white
         configureLayouts()
         configureBinding()
-        subDescriptionCollectionView.delegate = self
         mainViewModel.enquireMainPageData()
     }
 }
@@ -62,7 +83,7 @@ private extension MainViewController {
     func configureLayouts() {
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
-        contentView.addSubviews(titleView, subDescriptionCollectionView, featureView)
+        contentView.addSubviews(titleView, subDescriptionCollectionView, featureView, screenshotCollectionView)
         
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         contentView.translatesAutoresizingMaskIntoConstraints = false
@@ -104,6 +125,13 @@ private extension MainViewController {
             featureView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             featureView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.2)
         ])
+        
+        NSLayoutConstraint.activate([
+            screenshotCollectionView.topAnchor.constraint(equalTo: featureView.bottomAnchor),
+            screenshotCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            screenshotCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            screenshotCollectionView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.6)
+        ])
     }
     
     func configureBinding() {
@@ -122,6 +150,20 @@ private extension MainViewController {
                 
                 self.featureView.set(with: entity.thirdSection)
                 
+                self.mainViewModel.enquireScreenShotImages(with: entity.fourthSection)
+            }
+            .disposed(by: disposeBag)
+        
+        output.screenshots
+            .observe(on: ConcurrentMainScheduler.instance)
+            .bind { [weak self] images in
+                guard let self = self else { return }
+                self.screenshotDatasource = CollectionViewDatasource(images, reuseIdentifier: ScreenshotCell.reuseIdentifier) { (image: UIImage, cell: ScreenshotCell) in
+                    cell.set(image: image)
+                }
+                self.screenshotCollectionView.dataSource = self.screenshotDatasource
+                self.screenshotCollectionView.reloadData()
+                
                 self.setContentViewHeight()
             }
             .disposed(by: disposeBag)
@@ -130,7 +172,7 @@ private extension MainViewController {
     func setContentViewHeight() {
         NSLayoutConstraint.deactivate(contentViewHeightConstraint)
 
-        let contentViewHeight = titleView.frame.height + subDescriptionCollectionView.frame.height + featureView.frame.height
+        let contentViewHeight = titleView.frame.height + subDescriptionCollectionView.frame.height + featureView.frame.height + screenshotCollectionView.frame.height
 
         contentViewHeightConstraint = [contentView.heightAnchor.constraint(equalToConstant: contentViewHeight)]
         NSLayoutConstraint.activate(contentViewHeightConstraint)

@@ -17,6 +17,7 @@ final class MainViewModel {
     
     struct Output {
         let mainPageData = PublishRelay<MainPageEntity>()
+        let screenshots = PublishRelay<[UIImage]>()
     }
     
     init(main: ViewMainPageUsecase) {
@@ -43,11 +44,24 @@ final class MainViewModel {
                 
             }
             .disposed(by: disposeBag)
+        
+        mainUsecase.screenshotImagesSubject
+            .subscribe { images in
+                output.screenshots.accept(images)
+                
+            } onError: { _ in
+                
+            }
+            .disposed(by: disposeBag)
 
         return output
     }
     
     func enquireMainPageData() {
         mainUsecase.executeMainData()
+    }
+    
+    func enquireScreenShotImages(with entities: [FourthSectionEntity]) {
+        mainUsecase.executeScreenshots(with: entities)
     }
 }

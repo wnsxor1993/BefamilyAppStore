@@ -11,6 +11,8 @@ import RxSwift
 protocol ViewMainPageUsecase {
     
     var mainPageEntitySubject: PublishSubject<MainPageEntity> { get }
+    var screenshotImagesSubject: PublishSubject<[UIImage]> { get }
     
     func executeMainData()
+    func executeScreenshots(with entities: [FourthSectionEntity])
 }

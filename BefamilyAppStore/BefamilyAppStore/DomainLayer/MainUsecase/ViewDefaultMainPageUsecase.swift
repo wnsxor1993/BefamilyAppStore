@@ -12,6 +12,7 @@ final class ViewDefaultMainPageUsecase: ViewMainPageUsecase {
     
     private var mainRepository: ViewMainPageRepository
     let mainPageEntitySubject = PublishSubject<MainPageEntity>()
+    let screenshotImagesSubject = PublishSubject<[UIImage]>()
     
     let disposeBag = DisposeBag()
     
@@ -40,7 +41,19 @@ final class ViewDefaultMainPageUsecase: ViewMainPageUsecase {
             } onCompleted: {
                 self.mainPageEntitySubject.onCompleted()
                 
-            }.disposed(by: disposeBag)
+            }
+            .disposed(by: disposeBag)
+    }
+    
+    func executeScreenshots(with entities: [FourthSectionEntity]) {
+        mainRepository.searchImage(with: entities)
+            .subscribe { [weak self] images in
+                self?.screenshotImagesSubject.onNext(images)
+                
+            } onError: { [weak self] _ in
+                self?.screenshotImagesSubject.onError(DataError.entityConvertingError)
+            }
+            .disposed(by: disposeBag)
     }
 }
 
@@ -121,7 +134,7 @@ private extension ViewDefaultMainPageUsecase {
             
             do {
                 let data = try Data(contentsOf: url)
-                let temp = FourthSectionEntity(screenshots: data)
+                let temp = FourthSectionEntity(validURL: url, screenshots: data)
                 entities.append(temp)
                 
             } catch {

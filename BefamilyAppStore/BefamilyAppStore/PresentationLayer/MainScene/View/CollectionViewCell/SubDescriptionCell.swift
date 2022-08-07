@@ -32,7 +32,7 @@ final class SubDescriptionCell: UICollectionViewCell {
     private var titleLabel: UILabel = {
         let label = UILabel()
         label.textColor = .gray
-        label.font = .systemFont(ofSize: 16, weight: .bold)
+        label.font = .systemFont(ofSize: 16, weight: .semibold)
         label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
@@ -59,7 +59,7 @@ final class SubDescriptionCell: UICollectionViewCell {
     private var extraLabel: UILabel = {
         let label = UILabel()
         label.textColor = .gray
-        label.font = .systemFont(ofSize: 17, weight: .bold)
+        label.font = .systemFont(ofSize: 17, weight: .semibold)
         label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
