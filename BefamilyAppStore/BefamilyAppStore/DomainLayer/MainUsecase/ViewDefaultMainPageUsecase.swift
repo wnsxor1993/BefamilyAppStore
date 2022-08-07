@@ -12,7 +12,8 @@ final class ViewDefaultMainPageUsecase: ViewMainPageUsecase {
     
     private var mainRepository: ViewMainPageRepository
     let mainPageEntitySubject = PublishSubject<MainPageEntity>()
-    let screenshotImagesSubject = PublishSubject<[UIImage]>()
+    let imageSubject = PublishSubject<UIImage>()
+    let imagesArraySubject = PublishSubject<[UIImage]>()
     
     let disposeBag = DisposeBag()
     
@@ -37,21 +38,28 @@ final class ViewDefaultMainPageUsecase: ViewMainPageUsecase {
                 
             } onError: { [weak self] _ in
                 self?.mainPageEntitySubject.onError(DataError.entityConvertingError)
-                
-            } onCompleted: {
-                self.mainPageEntitySubject.onCompleted()
-                
+            }
+            .disposed(by: disposeBag)
+    }
+    
+    func executeMainTitleImage(with url: URL?) {
+        mainRepository.searchImage(with: url)
+            .subscribe { [weak self] image in
+                self?.imageSubject.onNext(image)
+            
+            } onError: { [weak self] _ in
+                self?.imageSubject.onError(DataError.entityConvertingError)
             }
             .disposed(by: disposeBag)
     }
     
     func executeScreenshots(with entities: [ScreenshotEntity]) {
-        mainRepository.searchImages(with: entities)
+        mainRepository.searchImagesArray(with: entities)
             .subscribe { [weak self] images in
-                self?.screenshotImagesSubject.onNext(images)
+                self?.imagesArraySubject.onNext(images)
                 
             } onError: { [weak self] _ in
-                self?.screenshotImagesSubject.onError(DataError.entityConvertingError)
+                self?.imagesArraySubject.onError(DataError.entityConvertingError)
             }
             .disposed(by: disposeBag)
     }
@@ -61,7 +69,7 @@ private extension ViewDefaultMainPageUsecase {
     
     func alterToEntity(from dto: MainPageDTO) -> MainPageEntity {
         
-        return MainPageEntity(naviTitle: alterToNaviEntity(from: dto), mainTitle: alterToFirstSectionEntity(from: dto), secondSection: alterToSecondSectionEntity(from: dto), thirdSection: alterToThirdSectionEntity(from: dto), fourthSection: alterToFourthSectionEntity(from: dto), fifthSection: alterToFifthSectionEntity(from: dto), SixthSection: alterToSixthSectionEntity(from: dto))
+        return MainPageEntity(naviTitle: alterToNaviEntity(from: dto), mainTitle: alterToMainTitleEntity(from: dto), subDescription: alterToSubDescriptionEntity(from: dto), newFeature: alterToNewFeatureEntity(from: dto), screenshot: alterToScreenshotEntity(from: dto), description: alterToDescriptionEntity(from: dto), infomation: alterToInfomationEntity(from: dto))
     }
 }
 
@@ -75,13 +83,13 @@ private extension ViewDefaultMainPageUsecase {
         return NavigationTitleEntity(navigationTitleImageURL: naviTitleImageURL, downloadURL: changeToURL(with: dto.trackViewURL))
     }
     
-    func alterToFirstSectionEntity(from dto: MainPageDTO) -> MainTitleEntity {
+    func alterToMainTitleEntity(from dto: MainPageDTO) -> MainTitleEntity {
         let appIconImageURL = changeToURL(with: dto.artworkUrl512)
         
         return MainTitleEntity(appIconImageURL: appIconImageURL, appName: dto.trackName, downloadURL: changeToURL(with: dto.trackViewURL))
     }
     
-    func alterToSecondSectionEntity(from dto: MainPageDTO) -> [SubDescriptionEntity] {
+    func alterToSubDescriptionEntity(from dto: MainPageDTO) -> [SubDescriptionEntity] {
         var entities = [SubDescriptionEntity]()
         var category = ""
         
@@ -118,12 +126,12 @@ private extension ViewDefaultMainPageUsecase {
         return entities
     }
     
-    func alterToThirdSectionEntity(from dto: MainPageDTO) -> NewFeatureEntity {
+    func alterToNewFeatureEntity(from dto: MainPageDTO) -> NewFeatureEntity {
         
         return NewFeatureEntity(version: dto.version, releaseNotes: dto.releaseNotes, updatedDate: calculateToday(from: dto.currentVersionReleaseDate))
     }
     
-    func alterToFourthSectionEntity(from dto: MainPageDTO) -> [ScreenshotEntity] {
+    func alterToScreenshotEntity(from dto: MainPageDTO) -> [ScreenshotEntity] {
         var entities = [ScreenshotEntity]()
         
         dto.screenshotUrls.forEach {
@@ -135,42 +143,42 @@ private extension ViewDefaultMainPageUsecase {
         return entities
     }
     
-    func alterToFifthSectionEntity(from dto: MainPageDTO) -> DescriptionEntity {
+    func alterToDescriptionEntity(from dto: MainPageDTO) -> DescriptionEntity {
         
         return DescriptionEntity(description: dto.description, programmerName: dto.artistName, programmerViewURL: changeToURL(with: dto.artistViewURL))
     }
     
-    func alterToSixthSectionEntity(from dto: MainPageDTO) -> [SixthSectionEntity] {
-        var entities = [SixthSectionEntity]()
+    func alterToInfomationEntity(from dto: MainPageDTO) -> [InfomationEntity] {
+        var entities = [InfomationEntity]()
         
         InfomationSection.allCases.forEach {
             switch $0 {
             case .firstItem:
-                let temp = SixthSectionEntity(title: "제공자", content: dto.sellerName)
+                let temp = InfomationEntity(title: "제공자", content: dto.sellerName)
                 entities.append(temp)
                 
             case .secondItem:
-                let temp = SixthSectionEntity(title: "크기", content: calculateMegaByte(from: dto.fileSizeBytes))
+                let temp = InfomationEntity(title: "크기", content: calculateMegaByte(from: dto.fileSizeBytes))
                 entities.append(temp)
                 
             case .thirdItem:
-                let temp = SixthSectionEntity(title: "카테고리", content: dto.genres[0])
+                let temp = InfomationEntity(title: "카테고리", content: dto.genres[0])
                 entities.append(temp)
                 
             case .fourthItem:
-                let temp = SixthSectionEntity(title: "호환성", content: dto.minimumOSVersion)
+                let temp = InfomationEntity(title: "호환성", content: dto.minimumOSVersion)
                 entities.append(temp)
                 
             case .fifthItem:
-                let temp = SixthSectionEntity(title: "언어", content: convertToString(from: dto.languageCodesISO2A))
+                let temp = InfomationEntity(title: "언어", content: convertToString(from: dto.languageCodesISO2A))
                 entities.append(temp)
                 
             case .sixthItem:
-                let temp = SixthSectionEntity(title: "연령 등급", content: dto.trackContentRating)
+                let temp = InfomationEntity(title: "연령 등급", content: dto.trackContentRating)
                 entities.append(temp)
                 
             case .seventhItem:
-                let temp = SixthSectionEntity(title: "저작권", content: "© \(calculateYear(from: dto.releaseDate)) \(dto.sellerName)")
+                let temp = InfomationEntity(title: "저작권", content: "© \(calculateYear(from: dto.releaseDate)) \(dto.sellerName)")
                 entities.append(temp)
             }
         }
@@ -231,7 +239,11 @@ private extension ViewDefaultMainPageUsecase {
         }
         
         return tempStrings.reduce("") { (result: String, next: String) -> String in
-            return "\(result), \(next)"
+            if result.isEmpty {
+                return "\(next)"
+            } else {
+                return "\(result), \(next)"
+            }
         }
     }
 }

@@ -11,5 +11,6 @@ import RxSwift
 protocol ViewMainPageRepository {
     
     func fetchDTO() -> Observable<MainPageDTO>
-    func searchImages(with entities: [ScreenshotEntity]) -> Observable<[UIImage]>
+    func searchImage(with url: URL?) -> Observable<UIImage>
+    func searchImagesArray(with entities: [ScreenshotEntity]) -> Observable<[UIImage]>
 }

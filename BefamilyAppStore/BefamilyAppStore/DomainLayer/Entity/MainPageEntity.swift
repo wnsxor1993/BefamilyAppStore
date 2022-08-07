@@ -10,9 +10,9 @@ import Foundation
 struct MainPageEntity {
     let naviTitle: NavigationTitleEntity
     let mainTitle: MainTitleEntity
-    let secondSection: [SubDescriptionEntity]
-    let thirdSection: NewFeatureEntity
-    let fourthSection: [ScreenshotEntity]
-    let fifthSection: DescriptionEntity
-    let SixthSection: [SixthSectionEntity]
+    let subDescription: [SubDescriptionEntity]
+    let newFeature: NewFeatureEntity
+    let screenshot: [ScreenshotEntity]
+    let description: DescriptionEntity
+    let infomation: [InfomationEntity]
 }

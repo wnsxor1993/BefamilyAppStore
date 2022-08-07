@@ -16,6 +16,7 @@ final class MainViewController: UIViewController {
     
     private var subDescriptionDatasource: CollectionViewDatasource<SubDescriptionEntity, SubDescriptionCell>?
     private var screenshotDatasource: CollectionViewDatasource<UIImage, ScreenshotCell>?
+    private var infomationDatasource: TableViewDatasource<InfomationEntity, InformationCell>?
     
     private var scrollView = UIScrollView()
     private var contentView = UIView()
@@ -23,6 +24,7 @@ final class MainViewController: UIViewController {
     private var featureView = NewFeatureView()
     private var screenView = ScreenshotView()
     private var descriptionView = DescriptionView()
+    private var infomationView = InfomationView()
     
     private lazy var subDescriptionCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -60,12 +62,23 @@ extension MainViewController: UICollectionViewDelegate {
     }
 }
 
+extension MainViewController: UITableViewDelegate {
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("\(indexPath.row)")
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 50
+    }
+}
+
 private extension MainViewController {
     
     func configureLayouts() {
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
-        contentView.addSubviews(titleView, subDescriptionCollectionView, featureView, screenView, descriptionView)
+        contentView.addSubviews(titleView, subDescriptionCollectionView, featureView, screenView, descriptionView, infomationView)
         
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         contentView.translatesAutoresizingMaskIntoConstraints = false
@@ -73,6 +86,7 @@ private extension MainViewController {
         featureView.translatesAutoresizingMaskIntoConstraints = false
         screenView.translatesAutoresizingMaskIntoConstraints = false
         descriptionView.translatesAutoresizingMaskIntoConstraints = false
+        infomationView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: view.topAnchor),
@@ -123,6 +137,13 @@ private extension MainViewController {
             descriptionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             descriptionView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.2)
         ])
+        
+        NSLayoutConstraint.activate([
+            infomationView.topAnchor.constraint(equalTo: descriptionView.bottomAnchor),
+            infomationView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            infomationView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            infomationView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.5)
+        ])
     }
     
     func configureBinding() {
@@ -131,18 +152,34 @@ private extension MainViewController {
         output.mainPageData
             .observe(on: ConcurrentMainScheduler.instance)
             .bind { [weak self] entity in
-                // TODO: 데이터소스나 뷰에 데이터 연결 하위 메서드 생성하고 여기서 불러주기
                 guard let self = self else { return }
-                self.subDescriptionDatasource = CollectionViewDatasource(entity.secondSection, reuseIdentifier: SubDescriptionCell.reuseIdentifier) { (data: SubDescriptionEntity, cell: SubDescriptionCell) in
+                self.titleView.set(with: entity.mainTitle)
+                self.mainViewModel.enquireMainTitleImage(with: entity.mainTitle.appIconImageURL)
+                
+                self.subDescriptionDatasource = CollectionViewDatasource(entity.subDescription, reuseIdentifier: SubDescriptionCell.reuseIdentifier) { (data: SubDescriptionEntity, cell: SubDescriptionCell) in
                     cell.set(itemSection: data.index, entity: data)
                 }
                 self.subDescriptionCollectionView.dataSource = self.subDescriptionDatasource
                 self.subDescriptionCollectionView.reloadData()
                 
-                self.featureView.set(with: entity.thirdSection)
-                self.descriptionView.set(with: entity.fifthSection)
+                self.infomationDatasource = TableViewDatasource(entity.infomation, reuseIdentifier: InformationCell.reuseIdentifier) { (data: InfomationEntity, cell: InformationCell) in
+                    cell.set(with: data)
+                }
+                self.infomationView.set(delegate: self, dataSource: self.infomationDatasource)
+                self.infomationView.reloadTableView()
                 
-                self.mainViewModel.enquireScreenShotImages(with: entity.fourthSection)
+                self.featureView.set(with: entity.newFeature)
+                self.descriptionView.set(with: entity.description)
+                
+                self.mainViewModel.enquireScreenShotImages(with: entity.screenshot)
+            }
+            .disposed(by: disposeBag)
+        
+        output.mainImage
+            .observe(on: ConcurrentMainScheduler.instance)
+            .bind { [weak self] image in
+                guard let self = self else { return }
+                self.titleView.set(with: image)
             }
             .disposed(by: disposeBag)
         
@@ -155,7 +192,7 @@ private extension MainViewController {
                 }
                 self.screenView.calculateItemSize()
                 self.screenView.set(delegate: self, dataSource: self.screenshotDatasource)
-                self.screenView.screenshotCollectionView.reloadData()
+                self.screenView.reloadCollectionView()
                 
                 self.setContentViewHeight()
             }
@@ -165,7 +202,7 @@ private extension MainViewController {
     func setContentViewHeight() {
         NSLayoutConstraint.deactivate(contentViewHeightConstraint)
 
-        let contentViewHeight = titleView.frame.height + subDescriptionCollectionView.frame.height + featureView.frame.height + screenView.frame.height + descriptionView.frame.height
+        let contentViewHeight = titleView.frame.height + subDescriptionCollectionView.frame.height + featureView.frame.height + screenView.frame.height + descriptionView.frame.height + infomationView.frame.height
 
         contentViewHeightConstraint = [contentView.heightAnchor.constraint(equalToConstant: contentViewHeight)]
         NSLayoutConstraint.activate(contentViewHeightConstraint)

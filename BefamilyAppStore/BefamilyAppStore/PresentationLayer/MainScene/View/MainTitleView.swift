@@ -67,7 +67,6 @@ final class MainTitleView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureLayouts()
-        setTitleData()
     }
 
     @available (*, unavailable)
@@ -75,17 +74,12 @@ final class MainTitleView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setTitleData() {
-        guard let url = URL(string: "https://is2-ssl.mzstatic.com/image/thumb/Purple122/v4/c1/c6/b5/c1c6b509-8c75-7f84-412f-4a24bbfb4abd/AppIcon-0-0-1x_U007emarketing-0-0-0-5-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/512x512bb.jpg") else { return }
-        
-        do {
-            let data = try Data(contentsOf: url)
-            titleImageView.image = UIImage(data: data)
-        } catch {
-            return
-        }
+    func set(with entity: MainTitleEntity) {
+        titleLabel.text = entity.appName
+    }
     
-        titleLabel.text = "비패밀리 메신저 Befamily Messenger"
+    func set(with image: UIImage) {
+        titleImageView.image = image
     }
 }
 

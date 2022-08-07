@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct SixthSectionEntity {
+struct InfomationEntity {
     let title: String
     let content: String
 }
