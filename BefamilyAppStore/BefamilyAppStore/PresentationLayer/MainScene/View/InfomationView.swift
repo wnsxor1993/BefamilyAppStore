@@ -24,6 +24,7 @@ final class InfomationView: UIView {
         let tableView = UITableView()
         tableView.backgroundColor = .white
         tableView.register(InformationCell.self, forCellReuseIdentifier: InformationCell.reuseIdentifier)
+        tableView.isScrollEnabled = false
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
         return tableView
