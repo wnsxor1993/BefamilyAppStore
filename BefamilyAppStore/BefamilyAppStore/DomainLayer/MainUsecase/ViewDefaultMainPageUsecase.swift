@@ -170,7 +170,7 @@ private extension ViewDefaultMainPageUsecase {
                 entities.append(temp)
                 
             case .secondItem:
-                let temp = InfomationEntity(title: "크기", content: calculateMegaByte(from: dto.fileSizeBytes))
+                let temp = InfomationEntity(title: "크기", content: "\(calculateMegaByte(from: dto.fileSizeBytes))MB")
                 entities.append(temp)
                 
             case .thirdItem:
@@ -178,7 +178,7 @@ private extension ViewDefaultMainPageUsecase {
                 entities.append(temp)
                 
             case .fourthItem:
-                let temp = InfomationEntity(title: "호환성", content: dto.minimumOSVersion)
+                let temp = InfomationEntity(title: "호환성", content: "iSO \(dto.minimumOSVersion)")
                 entities.append(temp)
                 
             case .fifthItem:
