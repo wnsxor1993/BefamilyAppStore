@@ -140,7 +140,7 @@ private extension ViewDefaultMainPageUsecase {
     
     func alterToNewFeatureEntity(from dto: MainPageDTO) -> NewFeatureEntity {
         
-        return NewFeatureEntity(version: dto.version, releaseNotes: dto.releaseNotes, updatedDate: calculateToday(from: dto.currentVersionReleaseDate))
+        return NewFeatureEntity(version: dto.version, releaseNotes: dto.releaseNotes, updatedDate: DateConverter.calculateToday(from: dto.currentVersionReleaseDate))
     }
     
     func alterToScreenshotEntity(from dto: MainPageDTO) -> [ScreenshotEntity] {
@@ -190,7 +190,7 @@ private extension ViewDefaultMainPageUsecase {
                 entities.append(temp)
                 
             case .seventhItem:
-                let temp = InfomationEntity(title: "저작권", content: "© \(calculateYear(from: dto.releaseDate)) \(dto.sellerName)")
+                let temp = InfomationEntity(title: "저작권", content: "© \(DateConverter.calculateYear(from: dto.releaseDate)) \(dto.sellerName)")
                 entities.append(temp)
             }
         }
@@ -205,32 +205,6 @@ private extension ViewDefaultMainPageUsecase {
     
     func changeToURL(with string: String) -> URL? {
         return URL(string: string)
-    }
-    
-    func calculateToday(from date: String) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:SSZ"
-        guard let date = dateFormatter.date(from: date) else { return "" }
-        
-        let offsetComps = Calendar.current.dateComponents([.year, .month, .day, .hour], from: date, to: Date())
-        
-        if let year = offsetComps.year, year > 0 {
-            return "\(year)년 전"
-            
-        } else if let month = offsetComps.month, month > 0 {
-            return "\(month)개월 전"
-            
-        } else if let day = offsetComps.day, day > 0 {
-            return "\(day)일 전"
-            
-        } else {
-            return ""
-        }
-    }
-    
-    func calculateYear(from date: String) -> String {
-        let temp = date.components(separatedBy: "-")
-        return temp[0]
     }
     
     func calculateMegaByte(from byte: String) -> String {

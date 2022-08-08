@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		44E66C87376FB2B3A73FAE7B /* Pods_BefamilyAppStore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E0AB42286546B483890220F /* Pods_BefamilyAppStore.framework */; };
+		D20D2E7F28A0BB320001B2D3 /* DateConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20D2E7E28A0BB320001B2D3 /* DateConverter.swift */; };
 		D2772A17289F71B300CDC77F /* NewFeatureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2772A16289F71B300CDC77F /* NewFeatureView.swift */; };
 		D2772A19289F8AD300CDC77F /* CALayer +.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2772A18289F8AD300CDC77F /* CALayer +.swift */; };
 		D2772A1B289F8EEC00CDC77F /* ScreenshotCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2772A1A289F8EEC00CDC77F /* ScreenshotCell.swift */; };
@@ -59,6 +60,7 @@
 		028386A81C96BE08F691969D /* Pods-BefamilyAppStore.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BefamilyAppStore.release.xcconfig"; path = "Target Support Files/Pods-BefamilyAppStore/Pods-BefamilyAppStore.release.xcconfig"; sourceTree = "<group>"; };
 		2E0AB42286546B483890220F /* Pods_BefamilyAppStore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BefamilyAppStore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2DB2240B9A7F501B9322CDE /* Pods-BefamilyAppStore.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BefamilyAppStore.debug.xcconfig"; path = "Target Support Files/Pods-BefamilyAppStore/Pods-BefamilyAppStore.debug.xcconfig"; sourceTree = "<group>"; };
+		D20D2E7E28A0BB320001B2D3 /* DateConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateConverter.swift; sourceTree = "<group>"; };
 		D2772A16289F71B300CDC77F /* NewFeatureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewFeatureView.swift; sourceTree = "<group>"; };
 		D2772A18289F8AD300CDC77F /* CALayer +.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer +.swift"; sourceTree = "<group>"; };
 		D2772A1A289F8EEC00CDC77F /* ScreenshotCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotCell.swift; sourceTree = "<group>"; };
@@ -290,6 +292,7 @@
 			isa = PBXGroup;
 			children = (
 				D27E66B3289E535500C2FDB4 /* JSONConverter.swift */,
+				D20D2E7E28A0BB320001B2D3 /* DateConverter.swift */,
 				D27E66AE289E51C000C2FDB4 /* Discriminator */,
 			);
 			path = Helper;
@@ -510,6 +513,7 @@
 				D27E66AC289E50D200C2FDB4 /* ViewDefaultMainPageRepository.swift in Sources */,
 				D27E667F289E351300C2FDB4 /* MainViewController.swift in Sources */,
 				D27E66D7289EA0E700C2FDB4 /* MainTitleView.swift in Sources */,
+				D20D2E7F28A0BB320001B2D3 /* DateConverter.swift in Sources */,
 				D27E66A1289E415500C2FDB4 /* NetworkError.swift in Sources */,
 				D2772A2A289FE7B800CDC77F /* SubDescriptionSection.swift in Sources */,
 				D27E66DF289ECF5200C2FDB4 /* SubDescriptionCell.swift in Sources */,
