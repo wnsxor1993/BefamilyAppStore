@@ -44,4 +44,68 @@ final class ViewDefaultMainPageRepository: ViewMainPageRepository {
             return Disposables.create()
         }
     }
+    
+    func searchImage(with url: URL?) -> Observable<UIImage> {
+        
+        return Observable.create { observer -> Disposable in
+            guard let validURL = url else {
+                observer.onError(NetworkError.noURL)
+                return Disposables.create()
+            }
+
+            if let cachedImage = ImageCacheService.loadData(url: validURL) {
+                observer.onNext(cachedImage)
+                
+            } else {
+                do {
+                    let data = try Data(contentsOf: validURL)
+                    guard let image = UIImage(data: data) else {
+                        observer.onError(DataError.decodingError)
+                        return Disposables.create()
+                    }
+                    
+                    ImageCacheService.saveData(image: image, url: validURL)
+                    observer.onNext(image)
+                
+                } catch {
+                    observer.onError(DataError.noData)
+                    return Disposables.create()
+                }
+            }
+            
+            return Disposables.create()
+        }
+    }
+    
+    func searchImagesArray(with entities: [ScreenshotEntity]) -> Observable<[UIImage]> {
+        
+        return Observable.create { observer -> Disposable in
+            var tempImages = [UIImage]()
+            
+            entities.forEach {
+                if let cachedImage = ImageCacheService.loadData(url: $0.validURL) {
+                    tempImages.append(cachedImage)
+                    
+                } else {
+                    do {
+                        let data = try Data(contentsOf: $0.validURL)
+                        guard let image = UIImage(data: data) else {
+                            observer.onError(DataError.decodingError)
+                            return
+                        }
+                        ImageCacheService.saveData(image: image, url: $0.validURL)
+                        tempImages.append(image)
+                    
+                    } catch {
+                        observer.onError(DataError.noData)
+                        return
+                    }
+                }
+            }
+            
+            observer.onNext(tempImages)
+            
+            return Disposables.create()
+        }
+    }
 }

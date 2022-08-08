@@ -7,6 +7,6 @@
 
 import Foundation
 
-struct FourthSectionEntity {
-    let screenshotUrls: [URL?]
+struct ScreenshotEntity {
+    let validURL: URL
 }

@@ -12,11 +12,18 @@ final class ViewDefaultMainPageUsecase: ViewMainPageUsecase {
     
     private var mainRepository: ViewMainPageRepository
     let mainPageEntitySubject = PublishSubject<MainPageEntity>()
+    let naviTitleImageSubject = PublishSubject<UIImage>()
+    let mainImageSubject = PublishSubject<UIImage>()
+    let screenshotsSubject = PublishSubject<[UIImage]>()
     
     let disposeBag = DisposeBag()
     
-    init(mainRepo: ViewMainPageRepository = ViewDefaultMainPageRepository()) {
+    init(mainRepo: ViewMainPageRepository) {
         self.mainRepository = mainRepo
+    }
+    
+    convenience init() {
+        self.init(mainRepo: ViewDefaultMainPageRepository())
     }
     
     func executeMainData() {
@@ -32,11 +39,41 @@ final class ViewDefaultMainPageUsecase: ViewMainPageUsecase {
                 
             } onError: { [weak self] _ in
                 self?.mainPageEntitySubject.onError(DataError.entityConvertingError)
+            }
+            .disposed(by: disposeBag)
+    }
+    
+    func executeNaviTitleImage(with url: URL?) {
+        mainRepository.searchImage(with: url)
+            .subscribe { [weak self] image in
+                self?.naviTitleImageSubject.onNext(image)
+            
+            } onError: { [weak self] _ in
+                self?.naviTitleImageSubject.onError(DataError.entityConvertingError)
+            }
+            .disposed(by: disposeBag)
+    }
+    
+    func executeMainTitleImage(with url: URL?) {
+        mainRepository.searchImage(with: url)
+            .subscribe { [weak self] image in
+                self?.mainImageSubject.onNext(image)
+            
+            } onError: { [weak self] _ in
+                self?.mainImageSubject.onError(DataError.entityConvertingError)
+            }
+            .disposed(by: disposeBag)
+    }
+    
+    func executeScreenshots(with entities: [ScreenshotEntity]) {
+        mainRepository.searchImagesArray(with: entities)
+            .subscribe { [weak self] images in
+                self?.screenshotsSubject.onNext(images)
                 
-            } onCompleted: {
-                self.mainPageEntitySubject.onCompleted()
-                
-            }.disposed(by: disposeBag)
+            } onError: { [weak self] _ in
+                self?.screenshotsSubject.onError(DataError.entityConvertingError)
+            }
+            .disposed(by: disposeBag)
     }
 }
 
@@ -44,7 +81,7 @@ private extension ViewDefaultMainPageUsecase {
     
     func alterToEntity(from dto: MainPageDTO) -> MainPageEntity {
         
-        return MainPageEntity(naviTitle: alterToNaviEntity(from: dto), firstSection: alterToFirstSectionEntity(from: dto), secondSection: alterToSecondSectionEntity(from: dto), thirdSection: alterToThirdSectionEntity(from: dto), fourthSection: alterToFourthSectionEntity(from: dto), fifthSection: alterToFifthSectionEntity(from: dto), SixthSection: alterToSixthSectionEntity(from: dto))
+        return MainPageEntity(naviTitle: alterToNaviEntity(from: dto), mainTitle: alterToMainTitleEntity(from: dto), subDescription: alterToSubDescriptionEntity(from: dto), newFeature: alterToNewFeatureEntity(from: dto), screenshot: alterToScreenshotEntity(from: dto), description: alterToDescriptionEntity(from: dto), infomation: alterToInfomationEntity(from: dto))
     }
 }
 
@@ -54,48 +91,111 @@ private extension ViewDefaultMainPageUsecase {
     
     func alterToNaviEntity(from dto: MainPageDTO) -> NavigationTitleEntity {
         let naviTitleImageURL = changeToURL(with: dto.artworkUrl60)
-        let downloadURL = changeToURL(with: dto.trackViewURL)
         
-        return NavigationTitleEntity(navigationTitleImageURL: naviTitleImageURL, downloadURL: downloadURL)
+        return NavigationTitleEntity(navigationTitleImageURL: naviTitleImageURL, downloadURL: changeToURL(with: dto.trackViewURL))
     }
     
-    func alterToFirstSectionEntity(from dto: MainPageDTO) -> FirstSectionEntity {
+    func alterToMainTitleEntity(from dto: MainPageDTO) -> MainTitleEntity {
         let appIconImageURL = changeToURL(with: dto.artworkUrl512)
-        let downloadURL = changeToURL(with: dto.trackViewURL)
         
-        return FirstSectionEntity(appIconImageURL: appIconImageURL, appName: dto.trackName, downloadURL: downloadURL)
+        return MainTitleEntity(appIconImageURL: appIconImageURL, appName: dto.trackName, downloadURL: changeToURL(with: dto.trackViewURL))
     }
     
-    func alterToSecondSectionEntity(from dto: MainPageDTO) -> SecondSectionEntity {
+    func alterToSubDescriptionEntity(from dto: MainPageDTO) -> [SubDescriptionEntity] {
+        var entities = [SubDescriptionEntity]()
         var category = ""
         
-        if let koIndex = dto.genres.firstIndex(of: "KO") {
-            category = dto.genres[koIndex]
+        if let koIndex = dto.languageCodesISO2A.firstIndex(of: "KO") {
+            category = dto.languageCodesISO2A[koIndex]
         } else {
-            category = dto.genres[0]
+            category = dto.languageCodesISO2A[0]
         }
         
-        return SecondSectionEntity(ratingCount: "\(dto.userRatingCountForCurrentVersion)", averageRating: "\(round(dto.averageUserRating * 10) / 10)", trackContentRating: dto.trackContentRating, category: category, programmerName: dto.artistName, languageCodesISO2A: dto.languageCodesISO2A)
-    }
-    
-    func alterToThirdSectionEntity(from dto: MainPageDTO) -> ThirdSectionEntity {
+        SubDescriptionSection.allCases.forEach {
+            switch $0 {
+            case .firstItem:
+                let temp = SubDescriptionEntity(index: $0.rawValue, title: "\(dto.userRatingCountForCurrentVersion)개의 평가", content: "\(round(dto.averageUserRating * 10) / 10)", extra: "★★★★☆")
+                entities.append(temp)
+                
+            case .secondItem:
+                let temp = SubDescriptionEntity(index: $0.rawValue, title: "연령", content: dto.trackContentRating, extra: "세")
+                entities.append(temp)
+                
+            case .thirdItem:
+                let temp = SubDescriptionEntity(index: $0.rawValue, title: "카테고리", content: "bubble.left.and.bubble.right.fill", extra: dto.genres[0])
+                entities.append(temp)
+                
+            case .fourthItem:
+                let temp = SubDescriptionEntity(index: $0.rawValue, title: "개발자", content: "person.crop.circle", extra: dto.artistName)
+                entities.append(temp)
+                
+            case .fifthItem:
+                let temp = SubDescriptionEntity(index: $0.rawValue, title: "언어", content: category, extra: "+ \(dto.languageCodesISO2A.count - 1)개의 언어")
+                entities.append(temp)
+            }
+        }
         
-        return ThirdSectionEntity(version: dto.version, releaseNotes: dto.releaseNotes, updatedDate: calculateToday(from: dto.currentVersionReleaseDate))
+        return entities
     }
     
-    func alterToFourthSectionEntity(from dto: MainPageDTO) -> FourthSectionEntity {
-
-        return FourthSectionEntity(screenshotUrls: changeToURL(with: dto.screenshotUrls))
-    }
-    
-    func alterToFifthSectionEntity(from dto: MainPageDTO) -> FifthSectionEntity {
+    func alterToNewFeatureEntity(from dto: MainPageDTO) -> NewFeatureEntity {
         
-        return FifthSectionEntity(description: dto.description, programmerName: dto.artistName, programmerViewURL: changeToURL(with: dto.artistViewURL))
+        return NewFeatureEntity(version: dto.version, releaseNotes: dto.releaseNotes, updatedDate: DateConverter.calculateToday(from: dto.currentVersionReleaseDate))
     }
     
-    func alterToSixthSectionEntity(from dto: MainPageDTO) -> SixthSectionEntity {
+    func alterToScreenshotEntity(from dto: MainPageDTO) -> [ScreenshotEntity] {
+        var entities = [ScreenshotEntity]()
         
-        return SixthSectionEntity(sellerName: dto.sellerName, fileSizeBytes: calculateMegaByte(from: dto.fileSizeBytes), categories: dto.genres, minimumOSVersion: dto.minimumOSVersion, languages: dto.languageCodesISO2A, ageRating: dto.trackContentRating, releaseDate: calculateYear(from: dto.releaseDate))
+        dto.screenshotUrls.forEach {
+            guard let url = changeToURL(with: $0) else { return }
+            let temp = ScreenshotEntity(validURL: url)
+            entities.append(temp)
+        }
+        
+        return entities
+    }
+    
+    func alterToDescriptionEntity(from dto: MainPageDTO) -> DescriptionEntity {
+        
+        return DescriptionEntity(description: dto.description, programmerName: dto.artistName, programmerViewURL: changeToURL(with: dto.artistViewURL))
+    }
+    
+    func alterToInfomationEntity(from dto: MainPageDTO) -> [InfomationEntity] {
+        var entities = [InfomationEntity]()
+        
+        InfomationSection.allCases.forEach {
+            switch $0 {
+            case .firstItem:
+                let temp = InfomationEntity(title: "제공자", content: dto.sellerName)
+                entities.append(temp)
+                
+            case .secondItem:
+                let temp = InfomationEntity(title: "크기", content: "\(calculateMegaByte(from: dto.fileSizeBytes))MB")
+                entities.append(temp)
+                
+            case .thirdItem:
+                let temp = InfomationEntity(title: "카테고리", content: dto.genres[0])
+                entities.append(temp)
+                
+            case .fourthItem:
+                let temp = InfomationEntity(title: "호환성", content: "iSO \(dto.minimumOSVersion)")
+                entities.append(temp)
+                
+            case .fifthItem:
+                let temp = InfomationEntity(title: "언어", content: convertToString(from: dto.languageCodesISO2A))
+                entities.append(temp)
+                
+            case .sixthItem:
+                let temp = InfomationEntity(title: "연령 등급", content: dto.trackContentRating)
+                entities.append(temp)
+                
+            case .seventhItem:
+                let temp = InfomationEntity(title: "저작권", content: "© \(DateConverter.calculateYear(from: dto.releaseDate)) \(dto.sellerName)")
+                entities.append(temp)
+            }
+        }
+        
+        return entities
     }
 }
 
@@ -107,45 +207,29 @@ private extension ViewDefaultMainPageUsecase {
         return URL(string: string)
     }
     
-    func changeToURL(with stringArrray: [String]) -> [URL?] {
-        var tempArray = [URL?]()
-        
-        stringArrray.forEach {
-            tempArray.append(URL(string: $0))
-        }
-        
-        return tempArray
-    }
-    
-    func calculateToday(from date: Date) -> String {
-        let offsetComps = Calendar.current.dateComponents([.year, .month, .day, .hour], from: date, to: Date())
-        
-        if let year = offsetComps.year {
-            return "\(year)"
-            
-        } else if let month = offsetComps.month {
-            return "\(month)"
-            
-        } else if let day = offsetComps.day {
-            return "\(day)"
-            
-        } else {
-            return ""
-        }
-    }
-    
-    func calculateYear(from date: Date) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy"
-        
-        return dateFormatter.string(from: date)
-    }
-    
     func calculateMegaByte(from byte: String) -> String {
         guard let realByte = Float(byte) else { return "" }
         
         let value = round((realByte / 1024000) * 10) / 10
         
         return "\(value)"
+    }
+    
+    func convertToString(from iso: [String]) -> String {
+        let isoDictionary = ["KO": "한국어", "EN": "영어"]
+        var tempStrings = [String]()
+        
+        iso.forEach {
+            guard let value = isoDictionary[$0] else { return }
+            tempStrings.append(value)
+        }
+        
+        return tempStrings.reduce("") { (result: String, next: String) -> String in
+            if result.isEmpty {
+                return "\(next)"
+            } else {
+                return "\(result), \(next)"
+            }
+        }
     }
 }

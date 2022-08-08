@@ -16,14 +16,14 @@ struct MainPageDTO: Codable {
     let artistViewURL: String
     let artworkUrl60: String
     let screenshotUrls: [String]
-    let currentVersionReleaseDate: Date
+    let currentVersionReleaseDate: String
     let releaseNotes, primaryGenreName: String
     let primaryGenreID: Int
     let description, currency: String
     let isVppDeviceBasedLicensingEnabled: Bool
     let sellerName, bundleID: String
     let genreIDS: [String]
-    let releaseDate: Date
+    let releaseDate: String
     let trackID: Int
     let trackName, version, wrapperType, minimumOSVersion: String
     let trackCensoredName: String

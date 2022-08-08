@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct FifthSectionEntity {
+struct DescriptionEntity {
     let description: String
     let programmerName: String
     let programmerViewURL: URL?
