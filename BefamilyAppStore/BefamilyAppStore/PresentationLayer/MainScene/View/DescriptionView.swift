@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 final class DescriptionView: UIView {
 
@@ -83,6 +85,15 @@ final class DescriptionView: UIView {
     func set(with entity: DescriptionEntity) {
         descriptionLabel.text = entity.description
         programmerName.text = entity.programmerName
+    }
+    
+    func connectAction() -> Observable<Void> {
+        return moreButton.rx.tap.asObservable()
+    }
+    
+    func deleteButton() {
+        descriptionLabel.numberOfLines = 0
+        moreButton.removeFromSuperview()
     }
 }
 

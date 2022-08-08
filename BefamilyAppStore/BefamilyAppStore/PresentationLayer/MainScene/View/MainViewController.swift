@@ -45,6 +45,7 @@ final class MainViewController: UIViewController {
     
     private var contentViewHeightConstraint = [NSLayoutConstraint]()
     private var featureViewHeightConstraint = [NSLayoutConstraint]()
+    private var descriptionViewHeightConstraint = [NSLayoutConstraint]()
     
     private var contentViewHeight: CGFloat {
         titleView.frame.height + subDescriptionCollectionView.frame.height + featureView.frame.height + screenView.frame.height + descriptionView.frame.height + infomationView.frame.height
@@ -70,10 +71,6 @@ extension MainViewController: UICollectionViewDelegate {
 }
 
 extension MainViewController: UITableViewDelegate {
-
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("\(indexPath.row)")
-    }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 50
@@ -155,9 +152,10 @@ private extension MainViewController {
         NSLayoutConstraint.activate([
             descriptionView.topAnchor.constraint(equalTo: screenView.bottomAnchor),
             descriptionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            descriptionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            descriptionView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.2)
+            descriptionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
         ])
+        descriptionViewHeightConstraint = [descriptionView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.2)]
+        NSLayoutConstraint.activate(descriptionViewHeightConstraint)
         
         NSLayoutConstraint.activate([
             infomationView.topAnchor.constraint(equalTo: descriptionView.bottomAnchor),
@@ -181,6 +179,13 @@ private extension MainViewController {
         
         featureViewHeightConstraint = [featureView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.3)]
         NSLayoutConstraint.activate(featureViewHeightConstraint)
+    }
+    
+    func replaceDescriptionViewHeight() {
+        NSLayoutConstraint.deactivate(descriptionViewHeightConstraint)
+        
+        descriptionViewHeightConstraint = [descriptionView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 2.5)]
+        NSLayoutConstraint.activate(descriptionViewHeightConstraint)
     }
 }
 
@@ -256,6 +261,19 @@ private extension MainViewController {
                 }
                 
                 self?.featureView.deleteButton()
+                self?.setContentViewHeight()
+            }
+            .disposed(by: disposeBag)
+        
+        descriptionView.connectAction()
+            .observe(on: ConcurrentMainScheduler.instance)
+            .bind { [weak self] _ in
+                UIView.animate(withDuration: 0.5) {
+                    self?.replaceDescriptionViewHeight()
+                    self?.view.layoutIfNeeded()
+                }
+                
+                self?.descriptionView.deleteButton()
                 self?.setContentViewHeight()
             }
             .disposed(by: disposeBag)

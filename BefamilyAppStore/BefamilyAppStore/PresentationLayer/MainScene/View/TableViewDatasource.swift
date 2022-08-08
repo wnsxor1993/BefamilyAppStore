@@ -31,6 +31,8 @@ final class TableViewDatasource<Model, Cell: UITableViewCell>: NSObject, UITable
         guard let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as? Cell, let models = models else { return UITableViewCell() }
         
         cellConfigurator(models[indexPath.row], cell)
+        cell.selectionStyle = .none
+        
         return cell
     }
 }
