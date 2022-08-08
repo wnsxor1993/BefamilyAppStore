@@ -66,7 +66,13 @@ final class MainViewController: UIViewController {
 extension MainViewController: UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("\(indexPath.row)")
+        switch indexPath.row {
+        case 1, 2, 3, 4:
+            scrollView.contentOffset.y = infomationView.frame.minY - infomationView.frame.height
+            
+        default:
+            break
+        }
     }
 }
 
