@@ -17,6 +17,7 @@ final class MainViewModel {
     
     struct Input {
         let titleDownButtonDidTapEvent: Observable<Void>
+        let programmerLinkButtonDidTapEvent: Observable<UITapGestureRecognizer>
     }
     
     struct Output {
@@ -26,6 +27,7 @@ final class MainViewModel {
         let screenshots = PublishRelay<[UIImage]>()
         
         let downloadURL = PublishRelay<URL>()
+        let developerURL = PublishRelay<URL>()
     }
     
     init(main: ViewMainPageUsecase) {
@@ -43,6 +45,13 @@ final class MainViewModel {
             .subscribe { [weak self] _ in
                 guard let validURL = self?.mainPageEntity?.mainTitle.downloadURL else { return }
                 output.downloadURL.accept(validURL)
+            }
+            .disposed(by: disposeBag)
+        
+        input.programmerLinkButtonDidTapEvent
+            .subscribe { [weak self] _ in
+                guard let validURL = self?.mainPageEntity?.description.programmerViewURL else { return }
+                output.developerURL.accept(validURL)
             }
             .disposed(by: disposeBag)
         

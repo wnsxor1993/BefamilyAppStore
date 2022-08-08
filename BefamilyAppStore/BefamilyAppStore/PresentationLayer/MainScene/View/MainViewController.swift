@@ -194,7 +194,7 @@ private extension MainViewController {
 private extension MainViewController {
     
     func configureBinding() {
-        let output = mainViewModel.transform(input: MainViewModel.Input(titleDownButtonDidTapEvent: titleView.connectAction()), disposeBag: disposeBag)
+        let output = mainViewModel.transform(input: MainViewModel.Input(titleDownButtonDidTapEvent: titleView.connectAction(), programmerLinkButtonDidTapEvent: descriptionView.connectProgrammerButtonActiron()), disposeBag: disposeBag)
         
         output.mainPageData
             .observe(on: ConcurrentMainScheduler.instance)
@@ -245,7 +245,13 @@ private extension MainViewController {
         output.downloadURL
             .observe(on: ConcurrentMainScheduler.instance)
             .bind { url in
-                print(url)
+                UIApplication.shared.open(url)
+            }
+            .disposed(by: disposeBag)
+        
+        output.developerURL
+            .observe(on: ConcurrentMainScheduler.instance)
+            .bind { url in
                 UIApplication.shared.open(url)
             }
             .disposed(by: disposeBag)
@@ -265,7 +271,7 @@ private extension MainViewController {
             }
             .disposed(by: disposeBag)
         
-        descriptionView.connectAction()
+        descriptionView.connectMoreButtonAction()
             .observe(on: ConcurrentMainScheduler.instance)
             .bind { [weak self] _ in
                 UIView.animate(withDuration: 0.5) {

@@ -8,6 +8,7 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import RxGesture
 
 final class DescriptionView: UIView {
 
@@ -87,8 +88,12 @@ final class DescriptionView: UIView {
         programmerName.text = entity.programmerName
     }
     
-    func connectAction() -> Observable<Void> {
+    func connectMoreButtonAction() -> Observable<Void> {
         return moreButton.rx.tap.asObservable()
+    }
+    
+    func connectProgrammerButtonActiron() -> Observable<UITapGestureRecognizer> {
+        return boxView.rx.tapGesture().when(.recognized).asObservable()
     }
     
     func deleteButton() {
